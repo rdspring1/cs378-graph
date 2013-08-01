@@ -495,6 +495,37 @@ TYPED_TEST(TestGraphGeneral, test_add_edge)
 // test_add_edge
 // -------------
 
+TYPED_TEST(TestGraphGeneral, test_add_edge_missing_vertex)
+{ 
+	try
+	{
+		std::pair<edge_descriptor, bool> p = add_edge(vdA, vdB, this->g);
+		ASSERT_TRUE(p.first != this->edAB);
+		ASSERT_EQ(p.second, true);
+	}
+	catch (std::exception &e)
+	{
+		ASSERT_EQ(std::strcmp(e.what(), "vector<T> too long"), 0);
+	}
+}
+
+// -------------
+// test_edge
+// -------------
+
+TYPED_TEST(TestGraphGeneral, test_edge_missing_edge)
+{ 
+	this->vdA  = add_vertex(this->g); 
+	this->vdB  = add_vertex(this->g);
+	std::pair<edge_descriptor, bool> p = edge(vdA, vdB, this->g);
+	ASSERT_EQ(p.first, edge_descriptor());
+	ASSERT_EQ(p.second, false);
+}
+
+// -------------
+// test_add_edge
+// -------------
+
 TYPED_TEST(TestGraphBasic, test_add_edge)
 {
 	std::pair<edge_descriptor, bool> p = add_edge(vdA, vdC, this->g);
