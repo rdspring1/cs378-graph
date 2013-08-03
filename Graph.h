@@ -10,8 +10,8 @@
 // --------
 // includes
 // --------
-
-#include <stddef.h>
+#include <exception> // exception
+#include <stddef.h> // ptrdiff_t
 #include <cassert> // assert
 #include <cstddef> // size_t
 #include <utility> // make_pair, pair
@@ -161,9 +161,9 @@ public:
 
 		/**
 		* dereference operator
-		* @return a reference to the value in the Iterator's current state
+		* @return an edge descriptor for the Iterator's current state
 		*/
-		reference operator * () const 
+		value_type operator * () const 
 		{
 			assert(_index <= _g->edgesize); 
 			edges_size_type offset = _index;
@@ -182,11 +182,11 @@ public:
 
 		/**
 		* pointer member access operator
-		* @return a pointer to the value in the Iterator's current state
+		* @return an edge descriptor for the Iterator's current state
 		*/
-		pointer operator -> () const 
+		value_type operator -> () const 
 		{
-			return &**this;
+			return **this;
 		}
 
 		// -----------
@@ -289,7 +289,7 @@ public:
 	friend std::pair<edge_descriptor, bool> add_edge (vertex_descriptor source, vertex_descriptor target, Graph& graph) 
 	{
 		if(source > graph.g.size())
-			throw std::exception("vector<T> too long");
+			throw std::out_of_range("vector<T> too long");
 
 		std::pair<edge_descriptor, bool> isPresent = edge(source, target, graph);
 		if(isPresent.second)
@@ -427,7 +427,7 @@ public:
 	friend vertex_descriptor vertex (vertices_size_type index, const Graph& graph) 
 	{
 		if(index >= graph.g.size())
-			throw new std::exception("vector<T> too long");
+			throw new std::out_of_range("vector<T> too long");
 		return index + 1;
 	}
 
