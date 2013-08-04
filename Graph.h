@@ -506,7 +506,7 @@ bool has_cycle (const G& graph)
 	std::pair<typename G::vertex_iterator, typename G::vertex_iterator> v = vertices(graph);
 	while(v.first != v.second)
 	{
-		std::vector<bool> explored(num_vertices(graph));
+		std::vector<bool> explored(num_vertices(graph) + 1);
 		std::stack<typename G::vertex_descriptor> vlist;
 		vlist.push(*v.first);
 		while(!vlist.empty())
