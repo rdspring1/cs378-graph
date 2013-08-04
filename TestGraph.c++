@@ -369,8 +369,8 @@ TYPED_TEST_CASE(TestGraphGeneral, testlist);
 TYPED_TEST(TestGraphGeneral, test_has_cycle_false) 
 {
 	this->NonCycleSetUp();
-	edges_size_type es = num_edges(this->g);
-	vertices_size_type vs = num_vertices(this->g);
+	typename TestFixture::edges_size_type es = num_edges(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
 	ASSERT_EQ(es, 4);
 	ASSERT_EQ(vs, 8);
 	ASSERT_FALSE(has_cycle(this->g));
@@ -383,8 +383,8 @@ TYPED_TEST(TestGraphGeneral, test_has_cycle_false)
 TYPED_TEST(TestGraphGeneral, test_has_cycle_true) 
 {
 	this->CycleSetUp();
-	edges_size_type es = num_edges(this->g);
-	vertices_size_type vs = num_vertices(this->g);
+	typename TestFixture::edges_size_type es = num_edges(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
 	ASSERT_EQ(es, 8);
 	ASSERT_EQ(vs, 8);
 	ASSERT_TRUE(has_cycle(this->g));
@@ -397,8 +397,8 @@ TYPED_TEST(TestGraphGeneral, test_has_cycle_true)
 TYPED_TEST(TestGraphGeneral, test_has_cycle_complex) 
 {
 	this->ComplexNonCycleSetUp();
-	edges_size_type es = num_edges(this->g);
-	vertices_size_type vs = num_vertices(this->g);
+	typename TestFixture::edges_size_type es = num_edges(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
 	ASSERT_EQ(es, 12);
 	ASSERT_EQ(vs, 8);
 	ASSERT_FALSE(has_cycle(this->g));
@@ -411,8 +411,8 @@ TYPED_TEST(TestGraphGeneral, test_has_cycle_complex)
 TYPED_TEST(TestGraphGeneral, test_has_cycle_simple) 
 {
 	this->SimpleNonCycleSetUp();
-	edges_size_type es = num_edges(this->g);
-	vertices_size_type vs = num_vertices(this->g);
+	typename TestFixture::edges_size_type es = num_edges(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
 	ASSERT_EQ(es, 1);
 	ASSERT_EQ(vs, 2);
 	ASSERT_FALSE(has_cycle(this->g));
@@ -426,7 +426,7 @@ TYPED_TEST(TestGraphGeneral, test_topological_sort_noncycle)
 {
 	this->NonCycleSetUp();
 	std::ostringstream out;
-	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
 	ASSERT_EQ(out.str(), "1 0 3 2 5 4 7 6 ");
 }
 
@@ -440,7 +440,7 @@ TYPED_TEST(TestGraphGeneral, test_topological_sort_cycle)
 	try
 	{
 		std::ostringstream out;
-		topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
+		topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
 		ASSERT_TRUE(false);
 	}
 	catch (boost::exception &e)
@@ -458,7 +458,7 @@ TYPED_TEST(TestGraphGeneral, test_topological_sort_complex)
 {
 	this->ComplexNonCycleSetUp();
 	std::ostringstream out;
-	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
 	ASSERT_EQ(out.str(), "6 1 5 0 3 4 2 7 ");
 }
 
@@ -470,7 +470,7 @@ TYPED_TEST(TestGraphGeneral, test_topological_sort_simple)
 {
 	this->SimpleNonCycleSetUp();
 	std::ostringstream out;
-	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
 	ASSERT_EQ(out.str(), "1 0 ");
 }
 
@@ -482,12 +482,12 @@ TYPED_TEST(TestGraphGeneral, test_add_edge)
 {
 	this->vdA  = add_vertex(this->g); 
 	this->vdB  = add_vertex(this->g); 
-	std::pair<edge_descriptor, bool> p = add_edge(vdA, vdB, this->g);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
 	ASSERT_TRUE(p.first != this->edAB);
 	ASSERT_EQ(p.second, true);
 	this->edAB = p.first;
-	std::pair<edge_descriptor, bool> p1 = add_edge(vdA, vdB, this->g);
-	ASSERT_EQ(p1.first, edAB);
+	std::pair<typename TestFixture::edge_descriptor, bool> p1 = add_edge(this->vdA, this->vdB, this->g);
+	ASSERT_EQ(p1.first, this->edAB);
 	ASSERT_EQ(p1.second, false);
 }
 
@@ -499,11 +499,12 @@ TYPED_TEST(TestGraphGeneral, test_add_edge_missing_vertex)
 { 
 	try
 	{
-		std::pair<edge_descriptor, bool> p = add_edge(vdA, vdB, this->g);
+		std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
 		ASSERT_TRUE(p.first != this->edAB);
 		ASSERT_EQ(p.second, true);
+		ASSERT_TRUE(false);
 	}
-	catch (std::exception &e)
+	catch (const std::exception &e)
 	{
 		ASSERT_EQ(std::strcmp(e.what(), "vector<T> too long"), 0);
 	}
@@ -517,8 +518,8 @@ TYPED_TEST(TestGraphGeneral, test_edge_missing_edge)
 { 
 	this->vdA  = add_vertex(this->g); 
 	this->vdB  = add_vertex(this->g);
-	std::pair<edge_descriptor, bool> p = edge(vdA, vdB, this->g);
-	ASSERT_EQ(p.first, edge_descriptor());
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdA, this->vdB, this->g);
+	ASSERT_EQ(p.first, typename TestFixture::edge_descriptor());
 	ASSERT_EQ(p.second, false);
 }
 
@@ -528,8 +529,8 @@ TYPED_TEST(TestGraphGeneral, test_edge_missing_edge)
 
 TYPED_TEST(TestGraphBasic, test_add_edge)
 {
-	std::pair<edge_descriptor, bool> p = add_edge(vdA, vdC, this->g);
-	ASSERT_EQ(p.first , edAC);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdC, this->g);
+	ASSERT_EQ(p.first , this->edAC);
 	ASSERT_EQ(p.second, false);
 }
 
@@ -539,14 +540,14 @@ TYPED_TEST(TestGraphBasic, test_add_edge)
 
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_A)
 {
-	std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdA, this->g);
-	adjacency_iterator b = p.first;
-	adjacency_iterator e = p.second;
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdA, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdC);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdC);
 	}
 	++b;
 	ASSERT_TRUE(b == e);
@@ -554,49 +555,49 @@ TYPED_TEST(TestGraphBasic, test_adjacent_vertices_A)
 
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_B)
 {
-	std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdB, this->g);
-	adjacency_iterator b = p.first;
-	adjacency_iterator e = p.second;
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdB, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
 	ASSERT_TRUE(b == e);
 }
 
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_C)
 {
-	std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdC, this->g);
-	adjacency_iterator b = p.first;
-	adjacency_iterator e = p.second;
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdC, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
 	ASSERT_TRUE(b == e);
 }
 
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_D)
 {
-	std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdD, this->g);
-	adjacency_iterator b = p.first;
-	adjacency_iterator e = p.second;
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdD, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdB);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdB);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdC);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdC);
 	}
 }
 
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_E)
 {
-	std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdE, this->g);
-	adjacency_iterator b = p.first;
-	adjacency_iterator e = p.second;
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdE, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdB);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdB);
 	}
 	++b;
 	ASSERT_TRUE(b == e);
@@ -604,33 +605,33 @@ TYPED_TEST(TestGraphBasic, test_adjacent_vertices_E)
 
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_F)
 {
-	std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdF, this->g);
-	adjacency_iterator b = p.first;
-	adjacency_iterator e = p.second;
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdF, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdB);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdB);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdC);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdC);
 	}
 }
 
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_G)
 {
-	std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdG, this->g);
-	adjacency_iterator b = p.first;
-	adjacency_iterator e = p.second;
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdG, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdC);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdC);
 	}
 	++b;
 	ASSERT_TRUE(b == e);
@@ -642,50 +643,50 @@ TYPED_TEST(TestGraphBasic, test_adjacent_vertices_G)
 
 TYPED_TEST(TestGraphBasic, test_edge_AC) 
 {
-	std::pair<edge_descriptor, bool> p = edge(vdA, vdC, this->g);
-	ASSERT_EQ(p.first , edAC);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdA, this->vdC, this->g);
+	ASSERT_EQ(p.first , this->edAC);
 	ASSERT_EQ(p.second, true);
 }
 
 TYPED_TEST(TestGraphBasic, test_edge_DB) 
 {
-	std::pair<edge_descriptor, bool> p = edge(vdD, vdB, this->g);
-	ASSERT_EQ(p.first , edDB);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdD, this->vdB, this->g);
+	ASSERT_EQ(p.first , this->edDB);
 	ASSERT_EQ(p.second, true);
 }
 
 TYPED_TEST(TestGraphBasic, test_edge_DC) 
 {
-	std::pair<edge_descriptor, bool> p = edge(vdD, vdC, this->g);
-	ASSERT_EQ(p.first , edDC);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdD, this->vdC, this->g);
+	ASSERT_EQ(p.first , this->edDC);
 	ASSERT_EQ(p.second, true);
 }
 
 TYPED_TEST(TestGraphBasic, test_edge_EB) 
 {
-	std::pair<edge_descriptor, bool> p = edge(vdE, vdB, this->g);
-	ASSERT_EQ(p.first , edEB);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdE, this->vdB, this->g);
+	ASSERT_EQ(p.first , this->edEB);
 	ASSERT_EQ(p.second, true);
 }
 
 TYPED_TEST(TestGraphBasic, test_edge_FB) 
 {
-	std::pair<edge_descriptor, bool> p = edge(vdF, vdB, this->g);
-	ASSERT_EQ(p.first , edFB);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdF, this->vdB, this->g);
+	ASSERT_EQ(p.first , this->edFB);
 	ASSERT_EQ(p.second, true);
 }
 
 TYPED_TEST(TestGraphBasic, test_edge_FC) 
 {
-	std::pair<edge_descriptor, bool> p = edge(vdF, vdC, this->g);
-	ASSERT_EQ(p.first , edFC);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdF, this->vdC, this->g);
+	ASSERT_EQ(p.first , this->edFC);
 	ASSERT_EQ(p.second, true);
 }
 
 TYPED_TEST(TestGraphBasic, test_edge_GC) 
 {
-	std::pair<edge_descriptor, bool> p = edge(vdG, vdC, this->g);
-	ASSERT_EQ(p.first , edGC);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdG, this->vdC, this->g);
+	ASSERT_EQ(p.first , this->edGC);
 	ASSERT_EQ(p.second, true);
 }
 
@@ -695,50 +696,50 @@ TYPED_TEST(TestGraphBasic, test_edge_GC)
 
 TYPED_TEST(TestGraphBasic, test_edges)
 {
-	std::pair<edge_iterator, edge_iterator> p = edges(this->g);
-	edge_iterator                           b = p.first;
-	edge_iterator                           e = p.second;
+	std::pair<typename TestFixture::edge_iterator, typename TestFixture::edge_iterator> p = edges(this->g);
+	typename TestFixture::edge_iterator                           b = p.first;
+	typename TestFixture::edge_iterator                           e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edAC);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edAC);
 	}
 	++b;
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edDB);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edDB);
 	}
 	++b;
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edDC);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edDC);
 	}
 	++b;
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edEB);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edEB);
 	}
 	++b;
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edFB);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edFB);
 	}
 	++b;
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edFC);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edFC);
 	}
 	++b;
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edGC);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edGC);
 	}
 	++b;
 	ASSERT_TRUE(b == e);
@@ -750,7 +751,7 @@ TYPED_TEST(TestGraphBasic, test_edges)
 
 TYPED_TEST(TestGraphBasic, test_num_edges) 
 {
-	edges_size_type es = num_edges(this->g);
+	typename TestFixture::edges_size_type es = num_edges(this->g);
 	ASSERT_EQ(es, 7);
 }
 
@@ -760,7 +761,7 @@ TYPED_TEST(TestGraphBasic, test_num_edges)
 
 TYPED_TEST(TestGraphBasic, test_num_vertices)
 {
-	vertices_size_type vs = num_vertices(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
 	ASSERT_EQ(vs, 7);
 }
 
@@ -770,44 +771,44 @@ TYPED_TEST(TestGraphBasic, test_num_vertices)
 
 TYPED_TEST(TestGraphBasic, test_source_AC) 
 {
-	vertex_descriptor vd = source(edAC, this->g);
-	ASSERT_EQ(vd, vdA);
+	typename TestFixture::vertex_descriptor vd = source(this->edAC, this->g);
+	ASSERT_EQ(vd, this->vdA);
 }
 
 TYPED_TEST(TestGraphBasic, test_source_DB) 
 {
-	vertex_descriptor vd = source(edDB, this->g);
-	ASSERT_EQ(vd, vdD);
+	typename TestFixture::vertex_descriptor vd = source(this->edDB, this->g);
+	ASSERT_EQ(vd, this->vdD);
 }
 
 TYPED_TEST(TestGraphBasic, test_source_DC) 
 {
-	vertex_descriptor vd = source(edDC, this->g);
-	ASSERT_EQ(vd, vdD);
+	typename TestFixture::vertex_descriptor vd = source(this->edDC, this->g);
+	ASSERT_EQ(vd, this->vdD);
 }
 
 TYPED_TEST(TestGraphBasic, test_source_EB) 
 {
-	vertex_descriptor vd = source(edEB, this->g);
-	ASSERT_EQ(vd, vdE);
+	typename TestFixture::vertex_descriptor vd = source(this->edEB, this->g);
+	ASSERT_EQ(vd, this->vdE);
 }
 
 TYPED_TEST(TestGraphBasic, test_source_FB) 
 {
-	vertex_descriptor vd = source(edFB, this->g);
-	ASSERT_EQ(vd, vdF);
+	typename TestFixture::vertex_descriptor vd = source(this->edFB, this->g);
+	ASSERT_EQ(vd, this->vdF);
 }
 
 TYPED_TEST(TestGraphBasic, test_source_FC) 
 {
-	vertex_descriptor vd = source(edFC, this->g);
-	ASSERT_EQ(vd, vdF);
+	typename TestFixture::vertex_descriptor vd = source(this->edFC, this->g);
+	ASSERT_EQ(vd, this->vdF);
 }
 
 TYPED_TEST(TestGraphBasic, test_source_GC) 
 {
-	vertex_descriptor vd = source(edGC, this->g);
-	ASSERT_EQ(vd, vdG);
+	typename TestFixture::vertex_descriptor vd = source(this->edGC, this->g);
+	ASSERT_EQ(vd, this->vdG);
 }
 
 // -----------
@@ -816,44 +817,44 @@ TYPED_TEST(TestGraphBasic, test_source_GC)
 
 TYPED_TEST(TestGraphBasic, test_target_AC) 
 {
-	vertex_descriptor vd = target(edAC, this->g);
-	ASSERT_EQ(vd, vdC);
+	typename TestFixture::vertex_descriptor vd = target(this->edAC, this->g);
+	ASSERT_EQ(vd, this->vdC);
 }
 
 TYPED_TEST(TestGraphBasic, test_target_DB) 
 {
-	vertex_descriptor vd = target(edDB, this->g);
-	ASSERT_EQ(vd, vdB);
+	typename TestFixture::vertex_descriptor vd = target(this->edDB, this->g);
+	ASSERT_EQ(vd, this->vdB);
 }
 
 TYPED_TEST(TestGraphBasic, test_target_DC) 
 {
-	vertex_descriptor vd = target(edDC, this->g);
-	ASSERT_EQ(vd, vdC);
+	typename TestFixture::vertex_descriptor vd = target(this->edDC, this->g);
+	ASSERT_EQ(vd, this->vdC);
 }
 
 TYPED_TEST(TestGraphBasic, test_target_EB) 
 {
-	vertex_descriptor vd = target(edEB, this->g);
-	ASSERT_EQ(vd, vdB);
+	typename TestFixture::vertex_descriptor vd = target(this->edEB, this->g);
+	ASSERT_EQ(vd, this->vdB);
 }
 
 TYPED_TEST(TestGraphBasic, test_target_FB) 
 {
-	vertex_descriptor vd = target(edFB, this->g);
-	ASSERT_EQ(vd, vdB);
+	typename TestFixture::vertex_descriptor vd = target(this->edFB, this->g);
+	ASSERT_EQ(vd, this->vdB);
 }
 
 TYPED_TEST(TestGraphBasic, test_target_FC) 
 {
-	vertex_descriptor vd = target(edFC, this->g);
-	ASSERT_EQ(vd, vdC);
+	typename TestFixture::vertex_descriptor vd = target(this->edFC, this->g);
+	ASSERT_EQ(vd, this->vdC);
 }
 
 TYPED_TEST(TestGraphBasic, test_target_GC) 
 {
-	vertex_descriptor vd = target(edGC, this->g);
-	ASSERT_EQ(vd, vdC);
+	typename TestFixture::vertex_descriptor vd = target(this->edGC, this->g);
+	ASSERT_EQ(vd, this->vdC);
 }
 
 // -----------
@@ -862,44 +863,44 @@ TYPED_TEST(TestGraphBasic, test_target_GC)
 
 TYPED_TEST(TestGraphBasic, test_vertex_A) 
 {
-	vertex_descriptor vd = vertex(0, this->g);
-	ASSERT_EQ(vd, vdA);
+	typename TestFixture::vertex_descriptor vd = vertex(0, this->g);
+	ASSERT_EQ(vd, this->vdA);
 }
 
 TYPED_TEST(TestGraphBasic, test_vertex_B) 
 {
-	vertex_descriptor vd = vertex(1, this->g);
-	ASSERT_EQ(vd, vdB);
+	typename TestFixture::vertex_descriptor vd = vertex(1, this->g);
+	ASSERT_EQ(vd, this->vdB);
 }
 
 TYPED_TEST(TestGraphBasic, test_vertex_C) 
 {
-	vertex_descriptor vd = vertex(2, this->g);
-	ASSERT_EQ(vd, vdC);
+	typename TestFixture::vertex_descriptor vd = vertex(2, this->g);
+	ASSERT_EQ(vd, this->vdC);
 }
 
 TYPED_TEST(TestGraphBasic, test_vertex_D) 
 {
-	vertex_descriptor vd = vertex(3, this->g);
-	ASSERT_EQ(vd, vdD);
+	typename TestFixture::vertex_descriptor vd = vertex(3, this->g);
+	ASSERT_EQ(vd, this->vdD);
 }
 
 TYPED_TEST(TestGraphBasic, test_vertex_E) 
 {
-	vertex_descriptor vd = vertex(4, this->g);
-	ASSERT_EQ(vd, vdE);
+	typename TestFixture::vertex_descriptor vd = vertex(4, this->g);
+	ASSERT_EQ(vd, this->vdE);
 }
 
 TYPED_TEST(TestGraphBasic, test_vertex_F) 
 {
-	vertex_descriptor vd = vertex(5, this->g);
-	ASSERT_EQ(vd, vdF);
+	typename TestFixture::vertex_descriptor vd = vertex(5, this->g);
+	ASSERT_EQ(vd, this->vdF);
 }
 
 TYPED_TEST(TestGraphBasic, test_vertex_G) 
 {
-	vertex_descriptor vd = vertex(6, this->g);
-	ASSERT_EQ(vd, vdG);
+	typename TestFixture::vertex_descriptor vd = vertex(6, this->g);
+	ASSERT_EQ(vd, this->vdG);
 }
 
 // -------------
@@ -908,50 +909,50 @@ TYPED_TEST(TestGraphBasic, test_vertex_G)
 
 TYPED_TEST(TestGraphBasic, test_vertices) 
 {
-	std::pair<vertex_iterator, vertex_iterator> p = vertices(this->g);
-	vertex_iterator                             b = p.first;
-	vertex_iterator                             e = p.second;
+	std::pair<typename TestFixture::vertex_iterator, typename TestFixture::vertex_iterator> p = vertices(this->g);
+	typename TestFixture::vertex_iterator                             b = p.first;
+	typename TestFixture::vertex_iterator                             e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdA);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdA);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdB);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdB);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdC);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdC);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdD);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdD);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdE);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdE);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdF);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdF);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdG);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdG);
 	}
 }
 
@@ -971,7 +972,7 @@ TYPED_TEST(TestGraphBasic, test_has_cycle)
 TYPED_TEST(TestGraphBasic, test_topological_sort) 
 {
 	std::ostringstream out;
-	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
 	ASSERT_EQ(out.str(), "2 0 1 3 4 5 6 ");
 }
 
@@ -981,8 +982,8 @@ TYPED_TEST(TestGraphBasic, test_topological_sort)
 
 TYPED_TEST(TestGraphSample, test_add_edge_duplicate)
 {
-	std::pair<edge_descriptor, bool> p = add_edge(vdA, vdB, this->g);
-	ASSERT_EQ(p.first , edAB);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
+	ASSERT_EQ(p.first , this->edAB);
 	ASSERT_EQ(p.second, false);
 }
 
@@ -992,20 +993,20 @@ TYPED_TEST(TestGraphSample, test_add_edge_duplicate)
 
 TYPED_TEST(TestGraphSample, test_adjacent_vertices)
 {
-	std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdA, this->g);
-	adjacency_iterator b = p.first;
-	adjacency_iterator e = p.second;
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdA, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdB);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdB);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdC);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdC);
 	}
 }
 
@@ -1015,8 +1016,8 @@ TYPED_TEST(TestGraphSample, test_adjacent_vertices)
 
 TYPED_TEST(TestGraphSample, test_edge) 
 {
-	std::pair<edge_descriptor, bool> p = edge(vdA, vdB, this->g);
-	ASSERT_EQ(p.first , edAB);
+	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdA, this->vdB, this->g);
+	ASSERT_EQ(p.first , this->edAB);
 	ASSERT_EQ(p.second, true);
 }
 
@@ -1026,20 +1027,20 @@ TYPED_TEST(TestGraphSample, test_edge)
 
 TYPED_TEST(TestGraphSample, test_edges)
 {
-	std::pair<edge_iterator, edge_iterator> p = edges(this->g);
-	edge_iterator                           b = p.first;
-	edge_iterator                           e = p.second;
+	std::pair<typename TestFixture::edge_iterator, typename TestFixture::edge_iterator> p = edges(this->g);
+	typename TestFixture::edge_iterator                           b = p.first;
+	typename TestFixture::edge_iterator                           e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edAB);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edAB);
 	}
 	++b;
 	if (b != e) 
 	{
-		edge_descriptor ed = *b;
-		ASSERT_EQ(ed, edAC);
+		typename TestFixture::edge_descriptor ed = *b;
+		ASSERT_EQ(ed, this->edAC);
 	}
 }
 
@@ -1049,7 +1050,7 @@ TYPED_TEST(TestGraphSample, test_edges)
 
 TYPED_TEST(TestGraphSample, test_num_edges) 
 {
-	edges_size_type es = num_edges(this->g);
+	typename TestFixture::edges_size_type es = num_edges(this->g);
 	ASSERT_EQ(es, 11);
 }
 
@@ -1059,7 +1060,7 @@ TYPED_TEST(TestGraphSample, test_num_edges)
 
 TYPED_TEST(TestGraphSample, test_num_vertices)
 {
-	vertices_size_type vs = num_vertices(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
 	ASSERT_EQ(vs, 8);
 }
 
@@ -1069,8 +1070,8 @@ TYPED_TEST(TestGraphSample, test_num_vertices)
 
 TYPED_TEST(TestGraphSample, test_source) 
 {
-	vertex_descriptor vd = source(edAB, this->g);
-	ASSERT_EQ(vd, vdA);
+	typename TestFixture::vertex_descriptor vd = source(this->edAB, this->g);
+	ASSERT_EQ(vd, this->vdA);
 }
 
 // -----------
@@ -1079,8 +1080,8 @@ TYPED_TEST(TestGraphSample, test_source)
 
 TYPED_TEST(TestGraphSample, test_target) 
 {
-	vertex_descriptor vd = target(edAB, this->g);
-	ASSERT_EQ(vd, vdB);
+	typename TestFixture::vertex_descriptor vd = target(this->edAB, this->g);
+	ASSERT_EQ(vd, this->vdB);
 }
 
 // -----------
@@ -1089,8 +1090,8 @@ TYPED_TEST(TestGraphSample, test_target)
 
 TYPED_TEST(TestGraphSample, test_vertex) 
 {
-	vertex_descriptor vd = vertex(0, this->g);
-	ASSERT_EQ(vd, vdA);
+	typename TestFixture::vertex_descriptor vd = vertex(0, this->g);
+	ASSERT_EQ(vd, this->vdA);
 }
 
 // -------------
@@ -1099,20 +1100,20 @@ TYPED_TEST(TestGraphSample, test_vertex)
 
 TYPED_TEST(TestGraphSample, test_vertices) 
 {
-	std::pair<vertex_iterator, vertex_iterator> p = vertices(this->g);
-	vertex_iterator                             b = p.first;
-	vertex_iterator                             e = p.second;
+	std::pair<typename TestFixture::vertex_iterator, typename TestFixture::vertex_iterator> p = vertices(this->g);
+	typename TestFixture::vertex_iterator                             b = p.first;
+	typename TestFixture::vertex_iterator                             e = p.second;
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdA);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdA);
 	}
 	++b;
 	if (b != e) 
 	{
-		vertex_descriptor vd = *b;
-		ASSERT_EQ(vd, vdB);
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdB);
 	}
 }
 
@@ -1134,7 +1135,7 @@ TYPED_TEST(TestGraphSample, test_topological_sort)
 	try
 	{
 		std::ostringstream out;
-		topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
+		topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
 		ASSERT_TRUE(false);
 	}
 	catch (boost::exception &e)
