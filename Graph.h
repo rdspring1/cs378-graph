@@ -16,11 +16,16 @@
 #include <cstddef> // size_t
 #include <utility> // make_pair, pair
 #include <vector> // vector
+#include <stack> // stack
+
 
 // -----
 // Graph
 // -----
 
+///
+/// A class designed to represent a directed graph
+///
 class Graph 
 {
 public:
@@ -495,9 +500,31 @@ public:
 * <your documentation>
 */
 template <typename G>
-bool has_cycle (const G& g) 
+bool has_cycle (const G& graph) 
 {
-	return true;
+	std::pair<typename Graph::vertex_iterator, typename Graph::vertex_iterator> v = vertices(graph);
+	while(v.first != v.second)
+	{
+		std::vector<bool> explored(num_vertices(graph));
+		std::stack<typename Graph::vertex_descriptor> vlist;
+		vlist.push(*v.first);
+		while(!vlist.empty())
+		{
+			std::pair<typename Graph::adjacency_iterator, typename Graph::adjacency_iterator> av = adjacent_vertices(vlist.top(), graph);
+			explored[vlist.top() - 1] = true;
+			vlist.pop();
+			while(av.first != av.second)
+			{
+				if(!explored[*av.first - 1])
+					vlist.push(*av.first);
+				if(*v.first == *av.first)
+					return true;
+				++av.first;
+			}
+		}
+		++v.first;
+	}
+	return false;
 }
 
 // ----------------
@@ -511,7 +538,7 @@ bool has_cycle (const G& g)
 * @throws Boost's not_a_dag exception if has_cycle()
 */
 template <typename G, typename OI>
-void topological_sort (const G& g, OI x) 
+void topological_sort (const G& graph, OI x) 
 {
 	*x = 2;
 	++x;
