@@ -10,6 +10,7 @@
 // --------
 // includes
 // --------
+#include <boost/throw_exception.hpp>
 #include <exception> // exception
 #include <stddef.h> // ptrdiff_t
 #include <cassert> // assert
@@ -540,11 +541,8 @@ bool has_cycle (const G& graph)
 template <typename G, typename OI>
 void topological_sort (const G& graph, OI x) 
 {
-	*x = 2;
-	++x;
-	*x = 0;
-	++x;
-	*x = 1;
+	if(has_cycle(graph))
+		boost::throw_exception(std::domain_error("The graph must be a DAG."));
 }
 
 #endif // Graph_h
