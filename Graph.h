@@ -18,6 +18,7 @@
 #include <utility> // make_pair, pair
 #include <vector> // vector
 #include <stack> // stack
+#include <queue> // heap
 
 
 // -----
@@ -543,6 +544,44 @@ void topological_sort (const G& graph, OI x)
 {
 	if(has_cycle(graph))
 		boost::throw_exception(std::domain_error("The graph must be a DAG."));
+
+	std::priority_queue< typename G::vertex_descriptor, vector<typename G::vertex_descriptor> > min_heap;
+	std::vector<typename G::vertex_descriptor> visited;
+	size_t nodes = num_vertices(graph);
+	while(nodes != 0)
+	{
+		std::pair<typename G::vertex_iterator, typename G::vertex_iterator> v = vertices(graph);
+		while(v.first != v.second)
+		{
+			if(find(visited.begin(), visited.end(), *v.first) == visited.cend())
+			{
+				std::pair<typename G::adjacency_iterator, typename G::adjacency_iterator> av = adjacent_vertices(*v.first, graph);
+				size_t requirements = av.second - av.first;
+				while(av.first != av.second)
+				{
+					if(find(visited.begin(), visited.end(), *av.first) != visited.cend())
+						--requirements;
+					++av.first;
+				}
+
+				if(requirements == 0)
+				{
+					min_heap.push(*v.first);
+					visited.push_back(*v.first);
+					break;
+				}
+			}
+			++v.first;
+		}
+
+		if(!min_heap.empty())
+		{
+			*x = min_heap.top() - 1;
+			++x;
+			min_heap.pop();
+			--nodes;
+		}
+	}
 }
 
 #endif // Graph_h
