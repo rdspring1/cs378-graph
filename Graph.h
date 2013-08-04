@@ -503,20 +503,20 @@ public:
 template <typename G>
 bool has_cycle (const G& graph) 
 {
-	std::pair<typename Graph::vertex_iterator, typename Graph::vertex_iterator> v = vertices(graph);
+	std::pair<typename G::vertex_iterator, typename G::vertex_iterator> v = vertices(graph);
 	while(v.first != v.second)
 	{
 		std::vector<bool> explored(num_vertices(graph));
-		std::stack<typename Graph::vertex_descriptor> vlist;
+		std::stack<typename G::vertex_descriptor> vlist;
 		vlist.push(*v.first);
 		while(!vlist.empty())
 		{
-			std::pair<typename Graph::adjacency_iterator, typename Graph::adjacency_iterator> av = adjacent_vertices(vlist.top(), graph);
-			explored[vlist.top() - 1] = true;
+			std::pair<typename G::adjacency_iterator, typename G::adjacency_iterator> av = adjacent_vertices(vlist.top(), graph);
+			explored[vlist.top()] = true;
 			vlist.pop();
 			while(av.first != av.second)
 			{
-				if(!explored[*av.first - 1])
+				if(!explored[*av.first])
 					vlist.push(*av.first);
 				if(*v.first == *av.first)
 					return true;
