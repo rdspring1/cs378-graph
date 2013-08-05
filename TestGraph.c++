@@ -350,10 +350,80 @@ public:
 		edHG = add_edge(vdH, vdG, this->g).first;
 	}
 
+	void Complex1NonCycleSetUp()
+	{
+		vdA  = add_vertex(this->g); 
+		vdB  = add_vertex(this->g); 
+		vdC  = add_vertex(this->g); 
+		vdD  = add_vertex(this->g); 
+		vdE  = add_vertex(this->g); 
+		vdF  = add_vertex(this->g); 
+		vdG  = add_vertex(this->g); 
+		vdH  = add_vertex(this->g); 
+		edAB = add_edge(vdA, vdB, this->g).first;
+		edDB = add_edge(vdD, vdB, this->g).first;
+		edEB = add_edge(vdE, vdB, this->g).first;
+		edEH = add_edge(vdE, vdH, this->g).first;
+		edFH = add_edge(vdF, vdH, this->g).first;
+		edGH = add_edge(vdG, vdH, this->g).first;
+	}
+
+	void Complex2NonCycleSetUp()
+	{
+		vdA  = add_vertex(this->g); 
+		vdB  = add_vertex(this->g); 
+		vdC  = add_vertex(this->g); 
+		vdD  = add_vertex(this->g); 
+		vdE  = add_vertex(this->g); 
+		vdF  = add_vertex(this->g); 
+		vdG  = add_vertex(this->g); 
+		edAB = add_edge(vdA, vdB, this->g).first;
+		edDB = add_edge(vdD, vdB, this->g).first;
+		edEB = add_edge(vdE, vdB, this->g).first;
+		edEC = add_edge(vdE, vdC, this->g).first;
+		edFC = add_edge(vdF, vdC, this->g).first;
+		edGC = add_edge(vdG, vdC, this->g).first;
+	}
+
+	void Complex3NonCycleSetUp()
+	{
+		vdA  = add_vertex(this->g); 
+		vdB  = add_vertex(this->g); 
+		vdC  = add_vertex(this->g); 
+		vdD  = add_vertex(this->g); 
+		vdE  = add_vertex(this->g); 
+		vdF  = add_vertex(this->g); 
+		vdG  = add_vertex(this->g); 
+		vdH  = add_vertex(this->g);
+		edAB = add_edge(vdA, vdB, this->g).first;
+		edDB = add_edge(vdD, vdB, this->g).first;
+		edEB = add_edge(vdE, vdB, this->g).first;
+		edAC = add_edge(vdA, vdC, this->g).first;
+		edEC = add_edge(vdE, vdC, this->g).first;
+		edFC = add_edge(vdF, vdC, this->g).first;
+		edGC = add_edge(vdG, vdC, this->g).first;
+		edDH = add_edge(vdF, vdH, this->g).first;
+	}
+
+	void Complex4NonCycleSetUp()
+	{
+		vdA  = add_vertex(this->g); 
+		vdB  = add_vertex(this->g); 
+		vdC  = add_vertex(this->g); 
+		vdD  = add_vertex(this->g); 
+		vdE  = add_vertex(this->g); 
+		vdF  = add_vertex(this->g);
+		edBE = add_edge(vdB, vdE, this->g).first;
+		edCE = add_edge(vdC, vdE, this->g).first;
+		edDE = add_edge(vdD, vdE, this->g).first;
+		edAB = add_edge(vdA, vdB, this->g).first;
+		edBF = add_edge(vdB, vdF, this->g).first;
+	}
+
 	void SimpleNonCycleSetUp()
 	{
-		vdA  = add_vertex(this->g); //1
-		vdB  = add_vertex(this->g); //2
+		vdA  = add_vertex(this->g);
+		vdB  = add_vertex(this->g);
 		edAB = add_edge(vdA, vdB, this->g).first;
 	}
 };
@@ -460,6 +530,54 @@ TYPED_TEST(TestGraphGeneral, test_topological_sort_complex)
 	std::ostringstream out;
 	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
 	ASSERT_EQ(out.str(), "6 1 5 0 3 4 2 7 ");
+}
+
+// ---------------------
+// test_topological_sort
+// ---------------------
+
+TYPED_TEST(TestGraphGeneral, test_topological_sort_complex1)
+{
+	this->Complex1NonCycleSetUp();
+	std::ostringstream out;
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
+	ASSERT_EQ(out.str(), "1 0 2 3 7 4 5 6 ");
+}
+
+// ---------------------
+// test_topological_sort
+// ---------------------
+
+TYPED_TEST(TestGraphGeneral, test_topological_sort_complex2)
+{
+	this->Complex2NonCycleSetUp();
+	std::ostringstream out;
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
+	ASSERT_EQ(out.str(), "1 0 2 3 4 5 6 ");
+}
+
+// ---------------------
+// test_topological_sort
+// ---------------------
+
+TYPED_TEST(TestGraphGeneral, test_topological_sort_complex3)
+{
+	this->Complex3NonCycleSetUp();
+	std::ostringstream out;
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
+	ASSERT_EQ(out.str(), "1 2 0 3 4 7 5 6 ");
+}
+
+// ---------------------
+// test_topological_sort
+// ---------------------
+
+TYPED_TEST(TestGraphGeneral, test_topological_sort_complex4)
+{
+	this->Complex4NonCycleSetUp();
+	std::ostringstream out;
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
+	ASSERT_EQ(out.str(), "4 5 1 0 2 3 ");
 }
 
 // ---------------------
