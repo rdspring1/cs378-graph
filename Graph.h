@@ -19,6 +19,7 @@
 #include <vector> // vector
 #include <stack> // stack
 #include <queue> // heap
+#include <functional> // greater
 
 
 // -----
@@ -41,8 +42,10 @@ public:
 	typedef std::size_t vertex_descriptor;
 	typedef std::pair<vertex_descriptor, edges_size_type> edge_descriptor; // source, offset
 
+	typedef std::vector<vertex_descriptor>::const_reverse_iterator reverse_vertex_iterator;
 	typedef std::vector<vertex_descriptor>::const_iterator vertex_iterator;
 	typedef std::vector<vertex_descriptor>::const_iterator adjacency_iterator;
+
 
 public:
 	// --------
@@ -452,6 +455,20 @@ public:
 		return std::make_pair(b, e);
 	}
 
+	// --------
+	// reverse_vertices
+	// --------
+
+	/**
+	* <your documentation>
+	*/
+	friend std::pair<reverse_vertex_iterator, reverse_vertex_iterator> reverse_vertices (const Graph& graph) 
+	{
+		reverse_vertex_iterator b = graph.vertices.crbegin();
+		reverse_vertex_iterator e = graph.vertices.crend();
+		return std::make_pair(b, e);
+	}
+
 private:
 	// ----
 	// data
@@ -545,43 +562,39 @@ void topological_sort (const G& graph, OI x)
 	if(has_cycle(graph))
 		boost::throw_exception(std::domain_error("The graph must be a DAG."));
 
-	std::priority_queue< typename G::vertex_descriptor, vector<typename G::vertex_descriptor> > min_heap;
-	std::vector<typename G::vertex_descriptor> visited;
-	size_t nodes = num_vertices(graph);
-	while(nodes != 0)
+	std::vector<bool> visited(num_vertices(graph) + 1);
+	std::pair<typename G::vertex_iterator, typename G::vertex_iterator> v = vertices(graph);
+	while(v.first != v.second)
 	{
-		std::pair<typename G::vertex_iterator, typename G::vertex_iterator> v = vertices(graph);
-		while(v.first != v.second)
-		{
-			if(find(visited.begin(), visited.end(), *v.first) == visited.cend())
-			{
-				std::pair<typename G::adjacency_iterator, typename G::adjacency_iterator> av = adjacent_vertices(*v.first, graph);
-				size_t requirements = av.second - av.first;
-				while(av.first != av.second)
-				{
-					if(find(visited.begin(), visited.end(), *av.first) != visited.cend())
-						--requirements;
-					++av.first;
-				}
-
-				if(requirements == 0)
-				{
-					min_heap.push(*v.first);
-					visited.push_back(*v.first);
-					break;
-				}
-			}
-			++v.first;
-		}
-
-		if(!min_heap.empty())
-		{
-			*x = min_heap.top() - 1;
-			++x;
-			min_heap.pop();
-			--nodes;
-		}
+		if(!visited[*v.first])
+			depth_search(graph, x, *v.first, visited);
+		++v.first;
 	}
+}
+
+template <typename G, typename OI>
+void depth_search (const G& graph, OI x, const typename G::vertex_descriptor& v, std::vector<bool>& visited) 
+{
+	std::pair<typename G::adjacency_iterator, typename G::adjacency_iterator> av = adjacent_vertices(v, graph);
+	std::priority_queue< typename G::vertex_descriptor, std::vector<typename G::vertex_descriptor>, std::greater<typename G::vertex_descriptor> > min_heap;
+	while(av.first != av.second)
+	{
+		if(!visited[*av.first])
+			min_heap.push(*av.first);
+		++av.first;
+	}
+
+	while(!min_heap.empty())
+	{
+		if(!visited[min_heap.top()])
+		{
+			depth_search(graph, x, min_heap.top(), visited);
+		}
+		min_heap.pop();
+	}
+	visited[v] = true;
+	*x = v - 1;
+	++x;
 }
 
 #endif // Graph_h
