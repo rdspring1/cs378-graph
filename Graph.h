@@ -11,6 +11,7 @@
 // includes
 // --------
 #include <boost/throw_exception.hpp>
+#include <boost/graph/exception.hpp>
 #include <exception> // exception
 #include <stddef.h> // ptrdiff_t
 #include <cassert> // assert
@@ -583,7 +584,7 @@ template <typename G, typename OI>
 void topological_sort (const G& graph, OI x) 
 {
 	if(has_cycle(graph))
-		boost::throw_exception(std::domain_error("The graph must be a DAG."));
+		boost::throw_exception(boost::not_a_dag());
 
 	std::vector<bool> visited(num_vertices(graph) + 1);
 	std::pair<typename G::vertex_iterator, typename G::vertex_iterator> v = vertices(graph);
