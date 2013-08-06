@@ -292,9 +292,13 @@ public:
 	// add_edge
 	// --------
 
-	/**
-	* <your documentation>
-	*/
+	///
+    /// Add an edge between a source and target vertex to the graph
+    /// @param source - a vertex descriptor for the source vertex
+    /// @param target - a vertex descriptor for the target vertex
+    /// @param graph - a graph
+    /// @return a std::pair<edge_descriptor, bool> - The edge_descriptor points to a new edge if the add_edge function was successful. Otherwise, the edge_descriptor points to the old edge already present in the graph. The bool value is true if the edge was successfully added. Otherwise, the bool value is false. 
+    ///
 	friend std::pair<edge_descriptor, bool> add_edge (vertex_descriptor source, vertex_descriptor target, Graph& graph) 
 	{
 		if(source > graph.g.size())
@@ -318,9 +322,11 @@ public:
 	// add_vertex
 	// ----------
 
-	/**
-	* <your documentation>
-	*/
+	///
+    /// Add a vertex to the graph
+    /// @param graph - a graph
+    /// @return a vertex_descriptor representing the new vertex
+    ///
 	friend vertex_descriptor add_vertex (Graph& graph) 
 	{
 		graph.g.push_back(std::vector<vertex_descriptor>());
@@ -332,9 +338,13 @@ public:
 	// adjacent_vertices
 	// -----------------
 
-	/**
-	* <your documentation>
-	*/
+	///
+    /// Provide access to the adjacent vertices to the source vertex in the graph
+    /// For example, if an edge from vertex u to vertex v exists in the graph, the vertex v is an adjacent vertex.
+    /// @param source - a vertex descriptor for the source vertex
+    /// @param graph - a graph
+    /// @return an iterator range representing the vertices adjacent to the source vertex in the graph
+    ///
 	friend std::pair<adjacency_iterator, adjacency_iterator> adjacent_vertices (vertex_descriptor source, const Graph& graph) 
 	{
 		adjacency_iterator b = graph.g[source - 1].begin();
@@ -346,9 +356,13 @@ public:
 	// edge
 	// ----
 
-	/**
-	* <your documentation>
-	*/
+	///
+    /// Find the edge between a source and target vertex to the graph
+    /// @param source - a vertex descriptor for the source vertex
+    /// @param target - a vertex descriptor for the target vertex
+    /// @param graph - a graph
+    /// @return a std::pair<edge_descriptor, bool> - If there exists an edge from vertex source to vertex target in the graph, the edge_descriptor for the edge is returned. Otherwise, the default edge descriptor is returned. The bool value is true if the edge is present. Otherwise, the bool value is false. 
+    ///
 	friend std::pair<edge_descriptor, bool> edge (vertex_descriptor source, vertex_descriptor target, const Graph& graph) 
 	{
 		edges_size_type offset = 0;
@@ -367,9 +381,11 @@ public:
 	// edges
 	// -----
 
-	/**
-	* <your documentation>
-	*/
+	///
+    /// Provide access to the edges in the graph
+    /// @param graph - a graph
+    /// @return an iterator range representing the edges in the graph
+    ///
 	friend std::pair<edge_iterator, edge_iterator> edges (const Graph& graph) 
 	{
 		// <your code>
@@ -382,9 +398,11 @@ public:
 	// num_edges
 	// ---------
 
-	/**
-	* <your documentation>
-	*/
+	///
+    /// Determine the number of edges in the graph
+    /// @param graph - a graph
+    /// @return the number of edges in the graph
+    ///
 	friend edges_size_type num_edges (const Graph& graph) 
 	{
 		return graph.edgesize;
@@ -394,9 +412,11 @@ public:
 	// num_vertices
 	// ------------
 
-	/**
-	* <your documentation>
-	*/
+	///
+    /// Determine the number of vertices in the graph
+    /// @param graph - a graph
+    /// @return the number of vertices in the graph
+    ///
 	friend vertices_size_type num_vertices (const Graph& graph) 
 	{
 		return graph.g.size();
@@ -406,9 +426,12 @@ public:
 	// source
 	// ------
 
-	/**
-	* <your documentation>
-	*/
+    ///
+    /// Access the source vertex of an edge in a graph
+    /// @param edge - the edge descriptor representing the edge in the graph
+    /// @param graph - a graph
+    /// @return the vertex descriptor of the source vertex
+    ///
 	friend vertex_descriptor source (edge_descriptor edge, const Graph& graph) 
 	{
 		return edge.first;
@@ -418,9 +441,12 @@ public:
 	// target
 	// ------
 
-	/**
-	* <your documentation>
-	*/
+    ///
+    /// Access the target vertex of an edge in a graph
+    /// @param edge - the edge descriptor representing the edge in the graph
+    /// @param graph - a graph
+    /// @return the vertex descriptor of the target vertex
+    ///
 	friend vertex_descriptor target (edge_descriptor edge, const Graph& graph) 
 	{
 		return graph.g[edge.first - 1][edge.second];
@@ -430,9 +456,12 @@ public:
 	// vertex
 	// ------
 
-	/**
-	* <your documentation>
-	*/
+    ///
+    /// Access the nth vertex of the graph
+    /// @param index - the nth position in the graph's vertex list
+    /// @param graph - a graph
+    /// @return the vertex descriptor of the nth vertex in the graph's vertex list
+    ///
 	friend vertex_descriptor vertex (vertices_size_type index, const Graph& graph) 
 	{
 		if(index >= graph.g.size())
@@ -444,9 +473,11 @@ public:
 	// vertices
 	// --------
 
-	/**
-	* <your documentation>
-	*/
+    ///
+    /// Provide access to the vertices in the graph
+    /// @param graph - a graph
+    /// @return an iterator range representing the vertices in the graph
+    ///
 	friend std::pair<vertex_iterator, vertex_iterator> vertices (const Graph& graph) 
 	{
 		vertex_iterator b = graph.vertices.begin();
@@ -466,13 +497,12 @@ private:
 	// valid
 	// -----
 
-	/**
-	* <your documentation>
-	*/
+	///
+	/// @return true if the Graph object is in a valid state
+	///
 	bool valid () const 
 	{
-		// <your code>
-		return true;
+		return (edgesize == 0 && vertices.size() == 0 && g.size() == 0) || (edgesize >= 0 && vertices.size() == g.size() && vertices.size() > 0 && g.size() > 0);
 	}
 
 public:
@@ -480,9 +510,9 @@ public:
 	// constructors
 	// ------------
 
-	/**
-	* <your documentation>
-	*/
+    ///
+	/// Default Constructor - Empty Graph
+	///
 	Graph () : edgesize(0)
 	{
 		assert(valid());
@@ -498,11 +528,15 @@ public:
 // has_cycle
 // ---------
 
-/**
-* depth-first traversal
-* three colors
-* <your documentation>
-*/
+///
+/// Determine whether the graph contains a cycle
+/// A cycle is a sequence of vertices starting and ending at the same vertex
+/// depth-first traversal
+/// three colors
+/// @tparam G - Graph Class Template
+/// @param graph - a graph
+/// @return true if the graph contains a cycle; Otherwise, false
+///
 template <typename G>
 bool has_cycle (const G& graph) 
 {
@@ -535,12 +569,16 @@ bool has_cycle (const G& graph)
 // topological_sort
 // ----------------
 
-/**
-* depth-first traversal
-* two colors
-* <your documentation>
-* @throws Boost's not_a_dag exception if has_cycle()
-*/
+///
+/// depth-first traversal
+/// two colors
+/// Generate a topological sort for the directed, acyclic graph
+/// @tparam G - Graph Class Template
+/// @tparam OI - Output Iterator Template
+/// @param graph - graph
+/// @param x - an output iterator
+/// @throws Boost's not_a_dag exception if has_cycle()
+///
 template <typename G, typename OI>
 void topological_sort (const G& graph, OI x) 
 {
@@ -557,6 +595,18 @@ void topological_sort (const G& graph, OI x)
 	}
 }
 
+///
+/// A helper function for the topological sort function
+/// This function executes a depth-first search of the graph
+/// The function recursively executes, following the requirement vertices for the current vertex
+/// The function processes the vertices in ascending order of their vertex number
+/// @tparam G - Graph Class Template
+/// @tparam OI - Output Iterator Template
+/// @param graph - graph
+/// @param x - an output iterator
+/// @param v -  the vertex descriptor representing the current vertex
+/// @param visited - a std::vector marking which vertices of the graph are visited by the depth first-search
+///
 template <typename G, typename OI>
 void depth_search (const G& graph, OI x, const typename G::vertex_descriptor& v, std::vector<bool>& visited) 
 {
