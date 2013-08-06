@@ -42,7 +42,6 @@ public:
 	typedef std::size_t vertex_descriptor;
 	typedef std::pair<vertex_descriptor, edges_size_type> edge_descriptor; // source, offset
 
-	typedef std::vector<vertex_descriptor>::const_reverse_iterator reverse_vertex_iterator;
 	typedef std::vector<vertex_descriptor>::const_iterator vertex_iterator;
 	typedef std::vector<vertex_descriptor>::const_iterator adjacency_iterator;
 
@@ -452,20 +451,6 @@ public:
 	{
 		vertex_iterator b = graph.vertices.begin();
 		vertex_iterator e = graph.vertices.end();
-		return std::make_pair(b, e);
-	}
-
-	// --------
-	// reverse_vertices
-	// --------
-
-	/**
-	* <your documentation>
-	*/
-	friend std::pair<reverse_vertex_iterator, reverse_vertex_iterator> reverse_vertices (const Graph& graph) 
-	{
-		reverse_vertex_iterator b = graph.vertices.crbegin();
-		reverse_vertex_iterator e = graph.vertices.crend();
 		return std::make_pair(b, e);
 	}
 
