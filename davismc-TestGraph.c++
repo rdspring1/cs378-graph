@@ -51,15 +51,15 @@ class GraphOnly : public testing::Test {
 
     typedef Graph								    graph_type;
 
-    typedef typename graph_type::vertex_descriptor  vertex_descriptor;
-    typedef typename graph_type::edge_descriptor    edge_descriptor;
+    typedef graph_type::vertex_descriptor  vertex_descriptor;
+    typedef graph_type::edge_descriptor    edge_descriptor;
 
-    typedef typename graph_type::vertex_iterator    vertex_iterator;
-    typedef typename graph_type::edge_iterator      edge_iterator;
-    typedef typename graph_type::adjacency_iterator adjacency_iterator;
+    typedef graph_type::vertex_iterator    vertex_iterator;
+    typedef graph_type::edge_iterator      edge_iterator;
+    typedef graph_type::adjacency_iterator adjacency_iterator;
 
-    typedef typename graph_type::vertices_size_type vertices_size_type;
-    typedef typename graph_type::edges_size_type    edges_size_type;
+    typedef graph_type::vertices_size_type vertices_size_type;
+    typedef graph_type::edges_size_type    edges_size_type;
 
     // directed, sparse, unweighted
     // possibly connected
@@ -117,9 +117,12 @@ class GraphOnly : public testing::Test {
 		for (int i = 0; i <= 21; ++i)
 			add_vertex(g);
 		std::vector<vector<int> > dep;
-		dep.push_back(vector<int>({16, 18, 14, 7, 10, 6, 9, 17, 13}));
-		dep.push_back(vector<int>({14, 17}));
-		dep.push_back(vector<int>({20, 7, 18, 6, 17}));
+		int m1[] = {16, 18, 14, 7, 10, 6, 9, 17, 13};
+		dep.push_back(vector<int>(m1, m1 + sizeof(m1) / sizeof(int)));
+		int m2[] = {14, 17};
+		dep.push_back(vector<int>(m2, m2 + sizeof(m2) / sizeof(int)));
+		int m3[] = {20, 7, 18, 6, 17};
+		dep.push_back(vector<int>(m3, m3 + sizeof(m3) / sizeof(int)));
 		add_edge_list(dep);
 	}
 
@@ -127,10 +130,14 @@ class GraphOnly : public testing::Test {
 		for (int i = 0; i <= 21; ++i)
 			add_vertex(g);
 		std::vector<vector<int> > dep;
-		dep.push_back(vector<int>({3, 19, 7, 9, 4, 1, 5}));
-		dep.push_back(vector<int>({7, 15}));
-		dep.push_back(vector<int>({4, 5, 7, 15, 12, 19}));
-		dep.push_back(vector<int>({10, 12, 8, 15}));
+		int m1[] = {3, 19, 7, 9, 4, 1, 5};
+		dep.push_back(vector<int>(m1, m1 + sizeof(m1) / sizeof(int)));
+		int m2[] = {7, 15};
+		dep.push_back(vector<int>(m2, m2 + sizeof(m2) / sizeof(int)));
+		int m3[] = {4, 5, 7, 15, 12, 19};
+		dep.push_back(vector<int>(m3, m3 + sizeof(m3) / sizeof(int)));
+		int m4[] = {10, 12, 8, 15};
+		dep.push_back(vector<int>(m4, m4 + sizeof(m4) / sizeof(int)));
 		add_edge_list(dep);
 	}
 
@@ -269,9 +276,12 @@ class InterfaceTests : public testing::Test {
 		for (int i = 0; i <= 21; ++i)
 			add_vertex(g);
 		std::vector<vector<int> > dep;
-		dep.push_back(vector<int>({16, 18, 14, 7, 10, 6, 9, 17, 13}));
-		dep.push_back(vector<int>({14, 17}));
-		dep.push_back(vector<int>({20, 7, 18, 6, 17}));
+		int m1[] = {16, 18, 14, 7, 10, 6, 9, 17, 13};
+		dep.push_back(vector<int>(m1, m1 + sizeof(m1) / sizeof(int)));
+		int m2[] = {14, 17};
+		dep.push_back(vector<int>(m2, m2 + sizeof(m2) / sizeof(int)));
+		int m3[] = {20, 7, 18, 6, 17};
+		dep.push_back(vector<int>(m3, m3 + sizeof(m3) / sizeof(int)));
 		add_edge_list(dep);
 	}
 
@@ -279,10 +289,14 @@ class InterfaceTests : public testing::Test {
 		for (int i = 0; i <= 21; ++i)
 			add_vertex(g);
 		std::vector<vector<int> > dep;
-		dep.push_back(vector<int>({3, 19, 7, 9, 4, 1, 5}));
-		dep.push_back(vector<int>({7, 15}));
-		dep.push_back(vector<int>({4, 5, 7, 15, 12, 19}));
-		dep.push_back(vector<int>({10, 12, 8, 15}));
+		int m1[] = {3, 19, 7, 9, 4, 1, 5};
+		dep.push_back(vector<int>(m1, m1 + sizeof(m1) / sizeof(int)));
+		int m2[] = {7, 15};
+		dep.push_back(vector<int>(m2, m2 + sizeof(m2) / sizeof(int)));
+		int m3[] = {4, 5, 7, 15, 12, 19};
+		dep.push_back(vector<int>(m3, m3 + sizeof(m3) / sizeof(int)));
+		int m4[] = {10, 12, 8, 15};
+		dep.push_back(vector<int>(m4, m4 + sizeof(m4) / sizeof(int)));
 		add_edge_list(dep);
 	}
 
@@ -391,7 +405,8 @@ class InterfaceTests : public testing::Test {
 		typedef typename TestFixture::vertex_descriptor vertex_descriptor;
 		typedef typename TestFixture::adjacency_iterator adjacency_iterator;
 		this->setUp_Graph02();
-		std::set<int> x({7, 18, 6, 17});  // Adjacent to vertex 20 in this graph
+		int m1[] = {7, 18, 6, 17};
+		std::set<int> x(m1, m1 + sizeof(m1) / sizeof(int));  // Adjacent to vertex 20 in this graph
         std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(20, this->g);
         adjacency_iterator b = p.first;
         adjacency_iterator e = p.second;
@@ -432,7 +447,8 @@ class InterfaceTests : public testing::Test {
     TYPED_TEST(InterfaceTests, test_edge_03) {
 		typedef typename TestFixture::edge_descriptor edge_descriptor;
 		this->setUp_Graph02();
-		std::set<int> x({7, 18, 6, 17});  // Adjacent to vertex 20 in this graph
+		int m1[] = {7, 18, 6, 17};
+		std::set<int> x(m1, m1 + sizeof(m1) / sizeof(int));  // Adjacent to vertex 20 in this graph
         std::pair<edge_descriptor, bool> p = edge(20, 7, this->g);
 		for (const auto& elem : x){
 			p = edge(20, elem, this->g);
