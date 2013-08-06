@@ -26,6 +26,12 @@ Graph.zip: Graph.h Graph.log TestGraph.c++ TestGraph.out
 
 TestGraph: Graph.h TestGraph.c++
 	g++ -pedantic -std=c++0x -Wall TestGraph.c++ -o TestGraph -lgtest -lpthread -lgtest_main
+    
+TestGraph1: Graph.h tsm544-TestGraph.c++
+	g++ -pedantic -std=c++0x -Wall tsm544-TestGraph.c++ -o TestGraph1 -lgtest -lpthread -lgtest_main
+
+TestGraph2: Graph.h davismc-TestGraph.c++
+	g++ -pedantic -std=c++0x -Wall davismc-TestGraph.c++ -o TestGraph2 -lgtest -lpthread -lgtest_main
 
 TestGraph.out: TestGraph
 	valgrind ./TestGraph > TestGraph.out
