@@ -44,7 +44,7 @@ public:
 	typedef std::pair<vertex_descriptor, edges_size_type> edge_descriptor; // source, target
 
 	typedef std::vector<vertex_descriptor>::const_iterator vertex_iterator;
-	typedef std::vector<vertex_descriptor>::const_iterator adjacency_iterator;
+	typedef std::set<vertex_descriptor>::const_iterator adjacency_iterator;
 
 
 public:
@@ -183,7 +183,11 @@ public:
 				offset -= _g->g[source].size();
 				++source;
 			}
-			return std::make_pair(source, _g->g[source][offset]);
+
+			adjacency_iterator av = _g->g[source].begin();
+			for(size_t i = 0; i < offset; ++i)
+				++av;
+			return std::make_pair(source, *av);
 		}
 
 		// -----------
@@ -307,18 +311,22 @@ public:
 		{
 			return std::make_pair(isPresent.first, false);
 		}
+		else if(source >= std::numeric_limits<size_t>::max() && target >= std::numeric_limits<size_t>::max())
+		{
+			throw std::out_of_range("vertex_descriptor source and target are invalid values");
+		}
 		else
 		{
-			int newsize = std::max(source, target) - graph.vertices.size();
-			if(newsize >= 0)
+			if(std::max(source, target) >= graph.vertices.size())
 			{
-				for(int i = 0; i < newsize + 1; ++i)
+				size_t newsize = std::max(source, target) - graph.vertices.size();
+				for(size_t i = 0; i < newsize + 1; ++i)
 					add_vertex(graph);
 			}
 
 			++graph.edgesize;
 			edge_descriptor ed = std::make_pair(source, target);
-			graph.g[source].push_back(target);
+			graph.g[source].insert(target);
 			return std::make_pair(ed, true);
 		}
 	}
@@ -334,7 +342,7 @@ public:
     ///
 	friend vertex_descriptor add_vertex (Graph& graph) 
 	{
-		graph.g.push_back(std::vector<vertex_descriptor>());
+		graph.g.push_back(std::set<vertex_descriptor>());
 		graph.vertices.push_back(graph.g.size() - 1);
 		return graph.g.size() - 1;
 	}
@@ -370,12 +378,13 @@ public:
     ///
 	friend std::pair<edge_descriptor, bool> edge (vertex_descriptor source, vertex_descriptor target, const Graph& graph) 
 	{
-		edges_size_type offset = 0;
-		for(vertex_descriptor i : graph.g.at(source))
+		if(source < graph.g.size())
 		{
-			if(i == target)
-				return std::make_pair(std::make_pair(source, target), true);
-			++offset;
+			for(vertex_descriptor i : graph.g[source])
+			{
+				if(i == target)
+					return std::make_pair(std::make_pair(source, target), true);
+			}
 		}
 		return std::make_pair(std::make_pair(source, target), false);
 	}
@@ -492,7 +501,7 @@ private:
 	// ----
 	edges_size_type edgesize;
 	std::vector<vertex_descriptor> vertices; // Vertex List
-	std::vector<std::vector<vertex_descriptor> > g; // Adjacency List
+	std::vector<std::set<vertex_descriptor> > g; // Adjacency List
 
 	// -----
 	// valid

@@ -613,19 +613,25 @@ TYPED_TEST(TestGraphGeneral, test_add_edge)
 // test_add_edge
 // -------------
 
+TYPED_TEST(TestGraphBasic, test_add_edge)
+{
+	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdC, this->g);
+	ASSERT_EQ(p.first , this->edAC);
+	ASSERT_EQ(p.second, false);
+}
+
+// -------------
+// test_add_edge
+// -------------
+
 TYPED_TEST(TestGraphGeneral, test_add_edge_missing_vertex)
 { 
-	try
-	{
-		std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
-		ASSERT_TRUE(p.first != this->edAB);
-		ASSERT_EQ(p.second, true);
-		ASSERT_TRUE(false);
-	}
-	catch (const std::exception &e)
-	{
-		ASSERT_EQ(std::strcmp(e.what(), "vector<T> too long"), 0);
-	}
+	typedef typename graph_type::vertices_size_type vertices_size_type;
+	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
+	vertices_size_type vs = num_vertices(this->g);
+	ASSERT_EQ(vs, 0);
+	ASSERT_TRUE(p.first == this->edAB);
+	ASSERT_EQ(p.second, true);
 }
 
 // -------------
@@ -637,19 +643,41 @@ TYPED_TEST(TestGraphGeneral, test_edge_missing_edge)
 	this->vdA  = add_vertex(this->g); 
 	this->vdB  = add_vertex(this->g);
 	std::pair<typename TestFixture::edge_descriptor, bool> p = edge(this->vdA, this->vdB, this->g);
-	ASSERT_EQ(p.first, typename TestFixture::edge_descriptor());
+	std::pair<typename TestFixture::edge_descriptor, bool> q = edge(0, 1, this->g);
+	ASSERT_EQ(p.first, q.first);
 	ASSERT_EQ(p.second, false);
 }
 
-// -------------
-// test_add_edge
-// -------------
+// ----------------------
+// test_adjacent_vertices
+// ----------------------
 
-TYPED_TEST(TestGraphBasic, test_add_edge)
-{
-	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdC, this->g);
-	ASSERT_EQ(p.first , this->edAC);
-	ASSERT_EQ(p.second, false);
+TYPED_TEST(TestGraphGeneral, test_adjacency_list_add_edge)
+{	
+	this->vdA  = add_vertex(this->g); 
+	this->vdB  = add_vertex(this->g);
+	add_edge(vdA, vdB, this->g);
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p2 = adjacent_vertices(vdA, this->g);
+    typename TestFixture::adjacency_iterator b2 = p2.first; 
+    typename TestFixture::adjacency_iterator e2 = p2.second;
+    ASSERT_EQ(true, b2 != e2);
+    typename TestFixture::vertex_descriptor vd2 = *b2;
+    ASSERT_EQ(true, vd2 == vdB);
+    ++b2;
+	ASSERT_EQ(true, b2 == e2);
+	
+	add_edge(vdA, vdA, this->g);
+    p2 = adjacent_vertices(vdA, this->g);
+    b2 = p2.first; 
+    e2 = p2.second;
+    ASSERT_EQ(true, b2 != e2);
+    vd2 = *b2;
+    ASSERT_EQ(true, vd2 == vdA);
+    ++b2;
+    vd2 = *b2;
+    ASSERT_EQ(true, vd2 == vdB);
+	++b2;
+	ASSERT_EQ(true, b2 == e2);
 }
 
 // ----------------------
