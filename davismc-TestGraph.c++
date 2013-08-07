@@ -51,15 +51,15 @@ class GraphOnly : public testing::Test {
 
     typedef Graph								    graph_type;
 
-    typedef graph_type::vertex_descriptor  vertex_descriptor;
-    typedef graph_type::edge_descriptor    edge_descriptor;
+    typedef typename graph_type::vertex_descriptor  vertex_descriptor;
+    typedef typenamegraph_type::edge_descriptor    edge_descriptor;
 
-    typedef graph_type::vertex_iterator    vertex_iterator;
-    typedef graph_type::edge_iterator      edge_iterator;
-    typedef graph_type::adjacency_iterator adjacency_iterator;
+    typedef typename graph_type::vertex_iterator    vertex_iterator;
+    typedef typename graph_type::edge_iterator      edge_iterator;
+    typedef typename graph_type::adjacency_iterator adjacency_iterator;
 
-    typedef graph_type::vertices_size_type vertices_size_type;
-    typedef graph_type::edges_size_type    edges_size_type;
+    typedef typename graph_type::vertices_size_type vertices_size_type;
+    typedef typename graph_type::edges_size_type    edges_size_type;
 
     // directed, sparse, unweighted
     // possibly connected
@@ -168,7 +168,42 @@ class GraphOnly : public testing::Test {
         add_edge(vdB, vdE, g).first;
         add_edge(vdE, vdD, g).first;}
 
+	virtual void setUp_Graph06() {
+		for (int i = 0; i <= 83; ++i)
+			add_vertex(g);
+		std::vector<vector<int> > dep;
+        int m1[] = {10, 58, 9, 33, 41};
+		dep.push_back(vector<int>(m1, m1 + sizeof(m1) / sizeof(int)));
+        int m2[] = {63, 83, 68, 40, 21};
+		dep.push_back(vector<int>(m2, m2 + sizeof(m2) / sizeof(int)));
+        int m3[] = {21, 13, 83, 44, 19, 68, 52, 72, 40, 9, 29};
+		dep.push_back(vector<int>(m3, m3 + sizeof(m3) / sizeof(int)));
+        int m4[] = {64, 9 , 44, 52, 26, 37, 11, 41, 19, 67, 27};
+		dep.push_back(vector<int>(m4, m4 + sizeof(m4) / sizeof(int)));
+        int m5[] = {3, 12, 40, 19, 29, 32, 7, 86, 83, 53, 41, 9, 50, 13};
+		dep.push_back(vector<int>(m5, m5 + sizeof(m5) / sizeof(int)));
+        int m6[] = {19, 4, 44, 40, 68, 29};
+		dep.push_back(vector<int>(m6, m6 + sizeof(m6) / sizeof(int)));
+        int m7[] = {1, 11, 85, 41, 52, 50, 29, 7, 3, 68, 19, 23, 63};
+		dep.push_back(vector<int>(m7, m7 + sizeof(m7) / sizeof(int)));
+        int m8[] = {83, 6, 68, 13, 44, 29, 40, 19};
+		dep.push_back(vector<int>(m8, m8 + sizeof(m8) / sizeof(int)));
+        int m9[] = {36, 6, 13, 2, 68, 44, 7, 21};
+		dep.push_back(vector<int>(m9, m9 + sizeof(m9) / sizeof(int)));
+        int m10[] = {20, 10, 2, 81, 87, 21, 58, 7, 29, 46, 9, 23};
+		dep.push_back(vector<int>(m10, m10 + sizeof(m10) / sizeof(int)));
+        int m11[] = {49, 10, 1, 53, 30, 48, 32, 81, 41, 38, 27, 21};
+		dep.push_back(vector<int>(m11, m11 + sizeof(m11) / sizeof(int)));
+		add_edge_list(dep);
+	}
 
+	// has a cycle
+    virtual void setUp_Graph07 () {
+        vdA  = add_vertex(g);
+        vdB  = add_vertex(g);
+
+        add_edge(vdA, vdB, g).first;
+        add_edge(vdB, vdA, g).first;}
 	virtual void add_edge_list(std::vector<vector<int> > x){
 		for (unsigned i = 0; i < x.size(); ++i)
 			for (unsigned j = 1; j < x[i].size(); ++j)
@@ -197,6 +232,13 @@ class GraphOnly : public testing::Test {
 		setUp_Graph04();
         ASSERT_FALSE(has_cycle(g));}
 
+    TEST_F(GraphOnly, test_has_cycle_05) {
+		setUp_Graph06();
+        ASSERT_FALSE(has_cycle(g));}
+
+    TEST_F(GraphOnly, test_has_cycle_06) {
+		setUp_Graph07();  // has a cycle
+        ASSERT_TRUE(has_cycle(g));}
 
 // Test the common interface functions with both boost::adjacency_list and Graph
 typedef testing::Types<boost::adjacency_list<boost::setS, boost::vecS, boost::directedS>, Graph > MyTypes;
@@ -299,7 +341,6 @@ class InterfaceTests : public testing::Test {
 		dep.push_back(vector<int>(m4, m4 + sizeof(m4) / sizeof(int)));
 		add_edge_list(dep);
 	}
-
     virtual void setUp_Graph04 () {
         vdA  = add_vertex(g);
         vdB  = add_vertex(g);
@@ -327,6 +368,42 @@ class InterfaceTests : public testing::Test {
         add_edge(vdB, vdE, g).first;
         add_edge(vdE, vdD, g).first;}
 
+	virtual void setUp_Graph06() {
+		for (int i = 0; i <= 83; ++i)
+			add_vertex(g);
+		std::vector<vector<int> > dep;
+        int m1[] = {10, 58, 9, 33, 41};
+		dep.push_back(vector<int>(m1, m1 + sizeof(m1) / sizeof(int)));
+        int m2[] = {63, 83, 68, 40, 21};
+		dep.push_back(vector<int>(m2, m2 + sizeof(m2) / sizeof(int)));
+        int m3[] = {21, 13, 83, 44, 19, 68, 52, 72, 40, 9, 29};
+		dep.push_back(vector<int>(m3, m3 + sizeof(m3) / sizeof(int)));
+        int m4[] = {64, 9 , 44, 52, 26, 37, 11, 41, 19, 67, 27};
+		dep.push_back(vector<int>(m4, m4 + sizeof(m4) / sizeof(int)));
+        int m5[] = {3, 12, 40, 19, 29, 32, 7, 86, 83, 53, 41, 9, 50, 13};
+		dep.push_back(vector<int>(m5, m5 + sizeof(m5) / sizeof(int)));
+        int m6[] = {19, 4, 44, 40, 68, 29};
+		dep.push_back(vector<int>(m6, m6 + sizeof(m6) / sizeof(int)));
+        int m7[] = {1, 11, 85, 41, 52, 50, 29, 7, 3, 68, 19, 23, 63};
+		dep.push_back(vector<int>(m7, m7 + sizeof(m7) / sizeof(int)));
+        int m8[] = {83, 6, 68, 13, 44, 29, 40, 19};
+		dep.push_back(vector<int>(m8, m8 + sizeof(m8) / sizeof(int)));
+        int m9[] = {36, 6, 13, 2, 68, 44, 7, 21};
+		dep.push_back(vector<int>(m9, m9 + sizeof(m9) / sizeof(int)));
+        int m10[] = {20, 10, 2, 81, 87, 21, 58, 7, 29, 46, 9, 23};
+		dep.push_back(vector<int>(m10, m10 + sizeof(m10) / sizeof(int)));
+        int m11[] = {49, 10, 1, 53, 30, 48, 32, 81, 41, 38, 27, 21};
+		dep.push_back(vector<int>(m11, m11 + sizeof(m11) / sizeof(int)));
+		add_edge_list(dep);
+	}
+
+	// has a cycle
+    virtual void setUp_Graph07 () {
+        vdA  = add_vertex(g);
+        vdB  = add_vertex(g);
+
+        add_edge(vdA, vdB, g).first;
+        add_edge(vdB, vdA, g).first;}
 
 	virtual void add_edge_list(std::vector<vector<int> > x){
 		for (unsigned i = 0; i < x.size(); ++i)
@@ -714,7 +791,7 @@ class InterfaceTests : public testing::Test {
         	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
 			ASSERT_TRUE(false); // should throw exception, graph has a cycle
 		}
-		catch (...) {
+		catch (boost::not_a_dag& e) {
 		    //std::cout << out.str() << std::endl;
         	ASSERT_TRUE(true);}}
 
@@ -726,7 +803,7 @@ class InterfaceTests : public testing::Test {
 		try {
         	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
 		}
-		catch (...) {
+		catch (boost::not_a_dag& e) {
 		    }
 		//std::cout << out.str() << std::endl;
         ASSERT_TRUE(out.str() == "0 1 2 3 4 5 6 7 8 9 10 11 12 13 17 14 15 18 16 19 20 21 ");}
@@ -739,8 +816,8 @@ class InterfaceTests : public testing::Test {
 		try {
         	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
 		}
-		catch (...) {
-		    }
+		catch (boost::not_a_dag& e) {
+		ASSERT_TRUE(false);}
 		//std::cout << out.str() << std::endl;
         ASSERT_TRUE(out.str() == "0 1 2 5 15 7 12 19 4 9 3 6 8 10 11 13 14 16 17 18 20 21 ");}
 
@@ -751,8 +828,8 @@ class InterfaceTests : public testing::Test {
 		try {
         	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
 		}
-		catch (...) {
-		    }
+		catch (boost::not_a_dag& e) {
+		ASSERT_TRUE(false);}
 		//std::cout << out.str() << std::endl;
         ASSERT_TRUE(out.str() == "3 0 1 2 ");}
 
@@ -763,7 +840,32 @@ class InterfaceTests : public testing::Test {
 		try {
         	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
 		}
-		catch (...) {
-		    }
+        catch (boost::not_a_dag& e) {
+		ASSERT_TRUE(false);}
 		//std::cout << out.str() << std::endl;
         ASSERT_TRUE(out.str() == "3 4 1 0 5 2 ");}
+
+    TYPED_TEST(InterfaceTests, test_topological_sort_06) {
+		typedef typename TestFixture::vertex_descriptor vertex_descriptor;
+		this->setUp_Graph06();
+        std::ostringstream out;
+		try {
+        	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
+		}
+		catch (boost::not_a_dag& e) {
+		ASSERT_TRUE(false);}
+		//std::cout << out.str() << std::endl;
+        ASSERT_TRUE(out.str() == "0 7 9 12 13 4 29 40 44 68 19 32 41 50 53 6 83 86 3 11 23 52 72 21 63 85 1 2 5 8 33 58 10 14 15 16 17 18 46 81 87 20 22 24 25 26 27 28 30 31 34 35 36 37 38 39 42 43 45 47 48 49 51 54 55 56 57 59 60 61 62 67 64 65 66 69 70 71 73 74 75 76 77 78 79 80 82 84 ");}
+
+    TYPED_TEST(InterfaceTests, test_topological_sort_07) {
+		typedef typename TestFixture::vertex_descriptor vertex_descriptor;
+		this->setUp_Graph07();
+        std::ostringstream out;
+		try {
+        	topological_sort(this->g, std::ostream_iterator<vertex_descriptor>(out, " "));
+			ASSERT_TRUE(false); // should throw exception, graph has a cycle
+		}
+		catch (boost::not_a_dag& e) {
+		    //std::cout << out.str() << std::endl;
+        	ASSERT_TRUE(true);}}
+
