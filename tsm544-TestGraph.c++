@@ -131,24 +131,15 @@ protected:
     }
 };
 
-// --- constructor ---
-TEST_F(ImplementationTest, DefaultConstructor) {
-	ASSERT_EQ(0, g.b.size());
-}
-
 TEST_F(ImplementationTest, AddEdgeTest1) {
 	vertex_descriptor p = add_vertex(g);
 	EXPECT_EQ(0, p);
-	EXPECT_EQ(1, g.b.size());
-	EXPECT_EQ(1, g.b[p].size());
 }
 
 TEST_F(ImplementationTest, AddEdgeTest2) {
 	for (int i = 0; i < 10; i++) {
 		vertex_descriptor p = add_vertex(g);
 		EXPECT_EQ(i, p);
-		EXPECT_EQ(i + 1, g.b.size());
-		EXPECT_EQ(1, g.b[p].size());
 	}
 }
 
