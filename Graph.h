@@ -41,7 +41,7 @@ public:
 	typedef std::size_t edges_size_type;
 
 	typedef std::size_t vertex_descriptor;
-	typedef std::pair<vertex_descriptor, edges_size_type> edge_descriptor; // source, offset
+	typedef std::pair<vertex_descriptor, edges_size_type> edge_descriptor; // source, target
 
 	typedef std::vector<vertex_descriptor>::const_iterator vertex_iterator;
 	typedef std::vector<vertex_descriptor>::const_iterator adjacency_iterator;
@@ -183,7 +183,7 @@ public:
 				offset -= _g->g[source].size();
 				++source;
 			}
-			return std::make_pair(source + 1, offset);
+			return std::make_pair(source, _g->g[source][offset]);
 		}
 
 		// -----------
@@ -302,9 +302,6 @@ public:
     ///
 	friend std::pair<edge_descriptor, bool> add_edge (vertex_descriptor source, vertex_descriptor target, Graph& graph) 
 	{
-		if(source > graph.g.size())
-			throw std::out_of_range("vector<T> too long");
-
 		std::pair<edge_descriptor, bool> isPresent = edge(source, target, graph);
 		if(isPresent.second)
 		{
@@ -312,9 +309,16 @@ public:
 		}
 		else
 		{
+			int newsize = std::max(source, target) - graph.vertices.size();
+			if(newsize >= 0)
+			{
+				for(int i = 0; i < newsize + 1; ++i)
+					add_vertex(graph);
+			}
+
 			++graph.edgesize;
-			edge_descriptor ed = std::make_pair(source, graph.g[source - 1].size());
-			graph.g[source - 1].push_back(target);
+			edge_descriptor ed = std::make_pair(source, target);
+			graph.g[source].push_back(target);
 			return std::make_pair(ed, true);
 		}
 	}
@@ -331,8 +335,8 @@ public:
 	friend vertex_descriptor add_vertex (Graph& graph) 
 	{
 		graph.g.push_back(std::vector<vertex_descriptor>());
-		graph.vertices.push_back(graph.g.size());
-		return graph.g.size();
+		graph.vertices.push_back(graph.g.size() - 1);
+		return graph.g.size() - 1;
 	}
 
 	// -----------------
@@ -348,8 +352,8 @@ public:
     ///
 	friend std::pair<adjacency_iterator, adjacency_iterator> adjacent_vertices (vertex_descriptor source, const Graph& graph) 
 	{
-		adjacency_iterator b = graph.g[source - 1].begin();
-		adjacency_iterator e = graph.g[source - 1].end();
+		adjacency_iterator b = graph.g[source].begin();
+		adjacency_iterator e = graph.g[source].end();
 		return std::make_pair(b, e);
 	}
 
@@ -362,20 +366,18 @@ public:
     /// @param source - a vertex descriptor for the source vertex
     /// @param target - a vertex descriptor for the target vertex
     /// @param graph - a graph
-    /// @return a std::pair<edge_descriptor, bool> - If there exists an edge from vertex source to vertex target in the graph, the edge_descriptor for the edge is returned. Otherwise, the default edge descriptor is returned. The bool value is true if the edge is present. Otherwise, the bool value is false. 
+    /// @return a std::pair<edge_descriptor, bool> - The edge_descriptor for the edge is returned regardless if the edge is present in the graph. The bool value is true if the edge is present. Otherwise, the bool value is false. 
     ///
 	friend std::pair<edge_descriptor, bool> edge (vertex_descriptor source, vertex_descriptor target, const Graph& graph) 
 	{
 		edges_size_type offset = 0;
-		for(vertex_descriptor i : graph.g[source - 1])
+		for(vertex_descriptor i : graph.g.at(source))
 		{
 			if(i == target)
-			{
-				return std::make_pair(std::make_pair(source, offset), true);
-			}
+				return std::make_pair(std::make_pair(source, target), true);
 			++offset;
 		}
-		return std::make_pair(edge_descriptor(), false);
+		return std::make_pair(std::make_pair(source, target), false);
 	}
 
 	// -----
@@ -450,7 +452,7 @@ public:
     ///
 	friend vertex_descriptor target (edge_descriptor edge, const Graph& graph) 
 	{
-		return graph.g[edge.first - 1][edge.second];
+		return edge.second;
 	}
 
 	// ------
@@ -465,9 +467,7 @@ public:
     ///
 	friend vertex_descriptor vertex (vertices_size_type index, const Graph& graph) 
 	{
-		if(index >= graph.g.size())
-			throw new std::out_of_range("vector<T> too long");
-		return index + 1;
+		return index;
 	}
 
 	// --------
@@ -544,7 +544,7 @@ bool has_cycle (const G& graph)
 	std::pair<typename G::vertex_iterator, typename G::vertex_iterator> v = vertices(graph);
 	while(v.first != v.second)
 	{
-		std::vector<bool> explored(num_vertices(graph) + 1);
+		std::vector<bool> explored(num_vertices(graph));
 		std::stack<typename G::vertex_descriptor> vlist;
 		vlist.push(*v.first);
 		while(!vlist.empty())
@@ -629,7 +629,7 @@ void depth_search (const G& graph, OI x, const typename G::vertex_descriptor& v,
 		min_heap.pop();
 	}
 	visited[v] = true;
-	*x = v - 1;
+	*x = v;
 	++x;
 }
 
