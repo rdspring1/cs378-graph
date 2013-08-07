@@ -1,0 +1,167 @@
+commit f154c1a03d74c0a3a015b5945c52413ba78b149a
+Author: rdspring <rdspring1@gmail.com>
+Date:   Wed Aug 7 18:04:33 2013 -0500
+
+    Comment test_add_edge_missing_vertex - unit test function - Pass Valgrind
+
+commit 90a5167f064c8bce82879607024c0349080bdcaa
+Author: rdspring <rdspring1@gmail.com>
+Date:   Wed Aug 7 17:37:32 2013 -0500
+
+    Fixed test_add_edge_missing_vertex - unit test function
+
+commit 978cf960c0feeb69515b414eeebdc0b541964255
+Author: rdspring <rdspring1@gmail.com>
+Date:   Wed Aug 7 17:01:51 2013 -0500
+
+    Fixed TestGraph compile errors
+
+commit c5e8e3c53662c29ee84fe6db4c3e0c296b07728a
+Author: rdspring <rdspring1@gmail.com>
+Date:   Wed Aug 7 16:48:04 2013 -0500
+
+    Fixed Add Edge - Missing Vertex
+
+commit b34d866456f0c5c945a6052bf8c3636f2f203a77
+Author: rdspring <rdspring1@gmail.com>
+Date:   Wed Aug 7 09:30:52 2013 -0500
+
+    Add Unit Test Suite 4
+
+commit d16e1b221d5a2419550b0bad71970c27d55af540
+Author: rdspring <rdspring1@gmail.com>
+Date:   Wed Aug 7 09:29:12 2013 -0500
+
+    Pass Additional Unit Tests Suites
+
+commit 348636e629096214ba8a03c93c06b82b2a171252
+Author: rdspring <rdspring1@gmail.com>
+Date:   Tue Aug 6 16:28:55 2013 -0500
+
+    Fixed unit test suite - davismc
+
+commit d8109ab0c26a4356c5fd72ed44075a3640aea632
+Author: rdspring <rdspring1@gmail.com>
+Date:   Tue Aug 6 16:21:32 2013 -0500
+
+    Fixed Boost::Not_A_DAG exception
+
+commit 947e0452ad881505217216742cac14e168002eef
+Author: rdspring <rdspring1@gmail.com>
+Date:   Tue Aug 6 15:44:33 2013 -0500
+
+    Added additional unit test suites
+
+commit 9bcc205f902222cbdeee06e57d86c93cec22241e
+Author: rdspring <rdspring1@gmail.com>
+Date:   Tue Aug 6 12:53:34 2013 -0500
+
+    Added Documentation
+
+commit 77ef64d1c53549e08b57c49bf78f34fcbbfd5acb
+Author: rdspring <rdspring1@gmail.com>
+Date:   Tue Aug 6 10:28:51 2013 -0500
+
+    Removed Reverse_Vertices functionality
+
+commit 04b9a525faa1b580d5cf394276b0b328eaddcba1
+Author: rdspring <rdspring1@gmail.com>
+Date:   Mon Aug 5 17:48:58 2013 -0500
+
+    Added more Topological Sort Function Unit Tests
+
+commit 170a6e7cf64f6d138b221a804d475a962b468e40
+Author: rdspring <rdspring1@gmail.com>
+Date:   Mon Aug 5 17:46:56 2013 -0500
+
+    Implement Topological Sort Function
+
+commit 5f0e45779b01a47b971c776d21b22840959f34b5
+Author: rdspring <rdspring1@gmail.com>
+Date:   Sun Aug 4 12:28:48 2013 -0500
+
+    Implemented Basic Topological Sort
+
+commit d3c3c97c5b11100fe8181f15ca2dd5fdbf9a39ab
+Author: rdspring <rdspring1@gmail.com>
+Date:   Sun Aug 4 08:30:44 2013 -0500
+
+    Fixed has_cycle function - visited vector off by one size
+
+commit fe48ddd1adfa590e43e63b258be06447ca6cb23b
+Author: rdspring <rdspring1@gmail.com>
+Date:   Sun Aug 4 08:28:25 2013 -0500
+
+    Fixed has_cycle function - compatibility with boost::adjacency_list
+
+commit bc65b0129b5a5053f4273c5626c0c01ef9dc0498
+Author: rdspring <rdspring1@gmail.com>
+Date:   Sun Aug 4 08:19:29 2013 -0500
+
+    Implement DAG check - topological_sort function
+
+commit 9d3b206421729cd5617cb68ec62a4c1518fb1ee2
+Author: rdspring <rdspring1@gmail.com>
+Date:   Sun Aug 4 08:09:04 2013 -0500
+
+    Implemented has_cycle function
+
+commit 3a6b7bbbde2d4f508b7969964aaf11d1adf11cfd
+Author: RyanDS <rdspring1@gmail.com>
+Date:   Sat Aug 3 20:38:57 2013 -0500
+
+    Fix Compile-Time Errors in TestGraph
+
+commit 61fbb726e673957c020a77fa951707ca990ab748
+Author: RyanDS <rdspring1@gmail.com>
+Date:   Sat Aug 3 18:30:51 2013 -0500
+
+    Fixed exceptions and edge_iterator class
+
+commit 4a1e45b78cb49de09a3359fde347bb63305385f4
+Author: RyanDS <rdspring1@gmail.com>
+Date:   Sat Aug 3 14:38:51 2013 -0500
+
+    Fixed makefile - TestGraph command
+
+commit 6b3664e957a16089d28a061ba1daf12f0fcc3107
+Author: rdspring <rdspring1@gmail.com>
+Date:   Thu Aug 1 17:07:52 2013 -0500
+
+    Implemented Basic Graph Functions
+
+commit c991632ea82b066ee24da9c95850419712fc8d62
+Author: rdspring <rdspring1@gmail.com>
+Date:   Thu Aug 1 14:21:35 2013 -0500
+
+    Add corner unit test case
+
+commit bcb5464394ffcf8d8ac25ec2e5500b7a6a32de58
+Author: rdspring <rdspring1@gmail.com>
+Date:   Thu Aug 1 13:36:42 2013 -0500
+
+    Complete Unit Test Suite - Main Functionality
+
+commit 27b8ffad9ccf8b74dc7ccc3f47e64242c2b4ce9a
+Author: rdspring <rdspring1@gmail.com>
+Date:   Tue Jul 30 19:51:17 2013 -0500
+
+    Added Unit Tests
+
+commit 31943af09ea0f6f77c4f0a17fcd6934c62dea926
+Author: rdspring <rdspring1@gmail.com>
+Date:   Tue Jul 30 16:33:58 2013 -0500
+
+    Setup Basic Google Test - Unit Test
+
+commit c8fb8ed02b4c8073027825c5c5518a39f97275f3
+Author: rdspring <rdspring1@gmail.com>
+Date:   Tue Jul 30 02:00:53 2013 -0500
+
+    Initial Commit
+
+commit bf1fc85738d8ec60870f0706f51e05cdfed3254d
+Author: rdspring1 <rdspring1@gmail.com>
+Date:   Mon Jul 29 23:53:26 2013 -0700
+
+    Initial commit

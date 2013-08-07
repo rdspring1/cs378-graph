@@ -7,13 +7,13 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphGeneral/0.test_has_cycle_true
 [       OK ] TestGraphGeneral/0.test_has_cycle_true (10 ms)
 [ RUN      ] TestGraphGeneral/0.test_has_cycle_complex
-[       OK ] TestGraphGeneral/0.test_has_cycle_complex (20 ms)
+[       OK ] TestGraphGeneral/0.test_has_cycle_complex (19 ms)
 [ RUN      ] TestGraphGeneral/0.test_has_cycle_simple
-[       OK ] TestGraphGeneral/0.test_has_cycle_simple (6 ms)
+[       OK ] TestGraphGeneral/0.test_has_cycle_simple (5 ms)
 [ RUN      ] TestGraphGeneral/0.test_topological_sort_noncycle
-[       OK ] TestGraphGeneral/0.test_topological_sort_noncycle (80 ms)
+[       OK ] TestGraphGeneral/0.test_topological_sort_noncycle (79 ms)
 [ RUN      ] TestGraphGeneral/0.test_topological_sort_cycle
-[       OK ] TestGraphGeneral/0.test_topological_sort_cycle (85 ms)
+[       OK ] TestGraphGeneral/0.test_topological_sort_cycle (83 ms)
 [ RUN      ] TestGraphGeneral/0.test_topological_sort_complex
 [       OK ] TestGraphGeneral/0.test_topological_sort_complex (7 ms)
 [ RUN      ] TestGraphGeneral/0.test_topological_sort_complex1
@@ -23,40 +23,40 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphGeneral/0.test_topological_sort_complex3
 [       OK ] TestGraphGeneral/0.test_topological_sort_complex3 (9 ms)
 [ RUN      ] TestGraphGeneral/0.test_topological_sort_complex4
-[       OK ] TestGraphGeneral/0.test_topological_sort_complex4 (8 ms)
+[       OK ] TestGraphGeneral/0.test_topological_sort_complex4 (7 ms)
 [ RUN      ] TestGraphGeneral/0.test_topological_sort_simple
 [       OK ] TestGraphGeneral/0.test_topological_sort_simple (4 ms)
 [ RUN      ] TestGraphGeneral/0.test_add_edge
-[       OK ] TestGraphGeneral/0.test_add_edge (9 ms)
+[       OK ] TestGraphGeneral/0.test_add_edge (10 ms)
 [ RUN      ] TestGraphGeneral/0.test_edge_missing_edge
 [       OK ] TestGraphGeneral/0.test_edge_missing_edge (12 ms)
 [ RUN      ] TestGraphGeneral/0.test_adjacency_list_add_edge
-[       OK ] TestGraphGeneral/0.test_adjacency_list_add_edge (12 ms)
-[----------] 15 tests from TestGraphGeneral/0 (466 ms total)
+[       OK ] TestGraphGeneral/0.test_adjacency_list_add_edge (13 ms)
+[----------] 15 tests from TestGraphGeneral/0 (463 ms total)
 
 [----------] 15 tests from TestGraphGeneral/1, where TypeParam = Graph
 [ RUN      ] TestGraphGeneral/1.test_has_cycle_false
-[       OK ] TestGraphGeneral/1.test_has_cycle_false (100 ms)
+[       OK ] TestGraphGeneral/1.test_has_cycle_false (99 ms)
 [ RUN      ] TestGraphGeneral/1.test_has_cycle_true
 [       OK ] TestGraphGeneral/1.test_has_cycle_true (13 ms)
 [ RUN      ] TestGraphGeneral/1.test_has_cycle_complex
-[       OK ] TestGraphGeneral/1.test_has_cycle_complex (22 ms)
+[       OK ] TestGraphGeneral/1.test_has_cycle_complex (21 ms)
 [ RUN      ] TestGraphGeneral/1.test_has_cycle_simple
 [       OK ] TestGraphGeneral/1.test_has_cycle_simple (6 ms)
 [ RUN      ] TestGraphGeneral/1.test_topological_sort_noncycle
-[       OK ] TestGraphGeneral/1.test_topological_sort_noncycle (35 ms)
+[       OK ] TestGraphGeneral/1.test_topological_sort_noncycle (34 ms)
 [ RUN      ] TestGraphGeneral/1.test_topological_sort_cycle
 [       OK ] TestGraphGeneral/1.test_topological_sort_cycle (7 ms)
 [ RUN      ] TestGraphGeneral/1.test_topological_sort_complex
-[       OK ] TestGraphGeneral/1.test_topological_sort_complex (9 ms)
+[       OK ] TestGraphGeneral/1.test_topological_sort_complex (8 ms)
 [ RUN      ] TestGraphGeneral/1.test_topological_sort_complex1
 [       OK ] TestGraphGeneral/1.test_topological_sort_complex1 (11 ms)
 [ RUN      ] TestGraphGeneral/1.test_topological_sort_complex2
 [       OK ] TestGraphGeneral/1.test_topological_sort_complex2 (11 ms)
 [ RUN      ] TestGraphGeneral/1.test_topological_sort_complex3
-[       OK ] TestGraphGeneral/1.test_topological_sort_complex3 (13 ms)
+[       OK ] TestGraphGeneral/1.test_topological_sort_complex3 (12 ms)
 [ RUN      ] TestGraphGeneral/1.test_topological_sort_complex4
-[       OK ] TestGraphGeneral/1.test_topological_sort_complex4 (10 ms)
+[       OK ] TestGraphGeneral/1.test_topological_sort_complex4 (9 ms)
 [ RUN      ] TestGraphGeneral/1.test_topological_sort_simple
 [       OK ] TestGraphGeneral/1.test_topological_sort_simple (4 ms)
 [ RUN      ] TestGraphGeneral/1.test_add_edge
@@ -65,7 +65,7 @@ Running main() from gtest_main.cc
 [       OK ] TestGraphGeneral/1.test_edge_missing_edge (4 ms)
 [ RUN      ] TestGraphGeneral/1.test_adjacency_list_add_edge
 [       OK ] TestGraphGeneral/1.test_adjacency_list_add_edge (11 ms)
-[----------] 15 tests from TestGraphGeneral/1 (268 ms total)
+[----------] 15 tests from TestGraphGeneral/1 (264 ms total)
 
 [----------] 42 tests from TestGraphBasic/0, where TypeParam = boost::adjacency_list<boost::setS, boost::vecS, boost::directedS, boost::no_property, boost::no_property, boost::no_property, boost::listS>
 [ RUN      ] TestGraphBasic/0.test_add_edge
@@ -79,13 +79,13 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/0.test_adjacent_vertices_D
 [       OK ] TestGraphBasic/0.test_adjacent_vertices_D (6 ms)
 [ RUN      ] TestGraphBasic/0.test_adjacent_vertices_E
-[       OK ] TestGraphBasic/0.test_adjacent_vertices_E (5 ms)
+[       OK ] TestGraphBasic/0.test_adjacent_vertices_E (6 ms)
 [ RUN      ] TestGraphBasic/0.test_adjacent_vertices_F
 [       OK ] TestGraphBasic/0.test_adjacent_vertices_F (6 ms)
 [ RUN      ] TestGraphBasic/0.test_adjacent_vertices_G
 [       OK ] TestGraphBasic/0.test_adjacent_vertices_G (6 ms)
 [ RUN      ] TestGraphBasic/0.test_edge_AC
-[       OK ] TestGraphBasic/0.test_edge_AC (7 ms)
+[       OK ] TestGraphBasic/0.test_edge_AC (6 ms)
 [ RUN      ] TestGraphBasic/0.test_edge_DB
 [       OK ] TestGraphBasic/0.test_edge_DB (4 ms)
 [ RUN      ] TestGraphBasic/0.test_edge_DC
@@ -113,7 +113,7 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/0.test_source_EB
 [       OK ] TestGraphBasic/0.test_source_EB (3 ms)
 [ RUN      ] TestGraphBasic/0.test_source_FB
-[       OK ] TestGraphBasic/0.test_source_FB (3 ms)
+[       OK ] TestGraphBasic/0.test_source_FB (2 ms)
 [ RUN      ] TestGraphBasic/0.test_source_FC
 [       OK ] TestGraphBasic/0.test_source_FC (3 ms)
 [ RUN      ] TestGraphBasic/0.test_source_GC
@@ -123,17 +123,17 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/0.test_target_DB
 [       OK ] TestGraphBasic/0.test_target_DB (3 ms)
 [ RUN      ] TestGraphBasic/0.test_target_DC
-[       OK ] TestGraphBasic/0.test_target_DC (3 ms)
+[       OK ] TestGraphBasic/0.test_target_DC (2 ms)
 [ RUN      ] TestGraphBasic/0.test_target_EB
 [       OK ] TestGraphBasic/0.test_target_EB (3 ms)
 [ RUN      ] TestGraphBasic/0.test_target_FB
-[       OK ] TestGraphBasic/0.test_target_FB (2 ms)
+[       OK ] TestGraphBasic/0.test_target_FB (3 ms)
 [ RUN      ] TestGraphBasic/0.test_target_FC
 [       OK ] TestGraphBasic/0.test_target_FC (3 ms)
 [ RUN      ] TestGraphBasic/0.test_target_GC
 [       OK ] TestGraphBasic/0.test_target_GC (3 ms)
 [ RUN      ] TestGraphBasic/0.test_vertex_A
-[       OK ] TestGraphBasic/0.test_vertex_A (3 ms)
+[       OK ] TestGraphBasic/0.test_vertex_A (4 ms)
 [ RUN      ] TestGraphBasic/0.test_vertex_B
 [       OK ] TestGraphBasic/0.test_vertex_B (3 ms)
 [ RUN      ] TestGraphBasic/0.test_vertex_C
@@ -141,7 +141,7 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/0.test_vertex_D
 [       OK ] TestGraphBasic/0.test_vertex_D (3 ms)
 [ RUN      ] TestGraphBasic/0.test_vertex_E
-[       OK ] TestGraphBasic/0.test_vertex_E (2 ms)
+[       OK ] TestGraphBasic/0.test_vertex_E (3 ms)
 [ RUN      ] TestGraphBasic/0.test_vertex_F
 [       OK ] TestGraphBasic/0.test_vertex_F (3 ms)
 [ RUN      ] TestGraphBasic/0.test_vertex_G
@@ -149,22 +149,22 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/0.test_vertices
 [       OK ] TestGraphBasic/0.test_vertices (13 ms)
 [ RUN      ] TestGraphBasic/0.test_has_cycle
-[       OK ] TestGraphBasic/0.test_has_cycle (5 ms)
+[       OK ] TestGraphBasic/0.test_has_cycle (4 ms)
 [ RUN      ] TestGraphBasic/0.test_topological_sort
 [       OK ] TestGraphBasic/0.test_topological_sort (5 ms)
-[----------] 42 tests from TestGraphBasic/0 (225 ms total)
+[----------] 42 tests from TestGraphBasic/0 (221 ms total)
 
 [----------] 42 tests from TestGraphBasic/1, where TypeParam = Graph
 [ RUN      ] TestGraphBasic/1.test_add_edge
-[       OK ] TestGraphBasic/1.test_add_edge (12 ms)
+[       OK ] TestGraphBasic/1.test_add_edge (11 ms)
 [ RUN      ] TestGraphBasic/1.test_adjacent_vertices_A
 [       OK ] TestGraphBasic/1.test_adjacent_vertices_A (6 ms)
 [ RUN      ] TestGraphBasic/1.test_adjacent_vertices_B
 [       OK ] TestGraphBasic/1.test_adjacent_vertices_B (3 ms)
 [ RUN      ] TestGraphBasic/1.test_adjacent_vertices_C
-[       OK ] TestGraphBasic/1.test_adjacent_vertices_C (3 ms)
+[       OK ] TestGraphBasic/1.test_adjacent_vertices_C (4 ms)
 [ RUN      ] TestGraphBasic/1.test_adjacent_vertices_D
-[       OK ] TestGraphBasic/1.test_adjacent_vertices_D (7 ms)
+[       OK ] TestGraphBasic/1.test_adjacent_vertices_D (6 ms)
 [ RUN      ] TestGraphBasic/1.test_adjacent_vertices_E
 [       OK ] TestGraphBasic/1.test_adjacent_vertices_E (6 ms)
 [ RUN      ] TestGraphBasic/1.test_adjacent_vertices_F
@@ -182,7 +182,7 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/1.test_edge_FB
 [       OK ] TestGraphBasic/1.test_edge_FB (4 ms)
 [ RUN      ] TestGraphBasic/1.test_edge_FC
-[       OK ] TestGraphBasic/1.test_edge_FC (4 ms)
+[       OK ] TestGraphBasic/1.test_edge_FC (3 ms)
 [ RUN      ] TestGraphBasic/1.test_edge_GC
 [       OK ] TestGraphBasic/1.test_edge_GC (4 ms)
 [ RUN      ] TestGraphBasic/1.test_edges
@@ -196,7 +196,7 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/1.test_source_DB
 [       OK ] TestGraphBasic/1.test_source_DB (3 ms)
 [ RUN      ] TestGraphBasic/1.test_source_DC
-[       OK ] TestGraphBasic/1.test_source_DC (4 ms)
+[       OK ] TestGraphBasic/1.test_source_DC (3 ms)
 [ RUN      ] TestGraphBasic/1.test_source_EB
 [       OK ] TestGraphBasic/1.test_source_EB (3 ms)
 [ RUN      ] TestGraphBasic/1.test_source_FB
@@ -206,7 +206,7 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/1.test_source_GC
 [       OK ] TestGraphBasic/1.test_source_GC (3 ms)
 [ RUN      ] TestGraphBasic/1.test_target_AC
-[       OK ] TestGraphBasic/1.test_target_AC (4 ms)
+[       OK ] TestGraphBasic/1.test_target_AC (3 ms)
 [ RUN      ] TestGraphBasic/1.test_target_DB
 [       OK ] TestGraphBasic/1.test_target_DB (3 ms)
 [ RUN      ] TestGraphBasic/1.test_target_DC
@@ -218,9 +218,9 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/1.test_target_FC
 [       OK ] TestGraphBasic/1.test_target_FC (3 ms)
 [ RUN      ] TestGraphBasic/1.test_target_GC
-[       OK ] TestGraphBasic/1.test_target_GC (3 ms)
+[       OK ] TestGraphBasic/1.test_target_GC (2 ms)
 [ RUN      ] TestGraphBasic/1.test_vertex_A
-[       OK ] TestGraphBasic/1.test_vertex_A (4 ms)
+[       OK ] TestGraphBasic/1.test_vertex_A (3 ms)
 [ RUN      ] TestGraphBasic/1.test_vertex_B
 [       OK ] TestGraphBasic/1.test_vertex_B (3 ms)
 [ RUN      ] TestGraphBasic/1.test_vertex_C
@@ -236,10 +236,10 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphBasic/1.test_vertices
 [       OK ] TestGraphBasic/1.test_vertices (12 ms)
 [ RUN      ] TestGraphBasic/1.test_has_cycle
-[       OK ] TestGraphBasic/1.test_has_cycle (4 ms)
+[       OK ] TestGraphBasic/1.test_has_cycle (5 ms)
 [ RUN      ] TestGraphBasic/1.test_topological_sort
-[       OK ] TestGraphBasic/1.test_topological_sort (5 ms)
-[----------] 42 tests from TestGraphBasic/1 (209 ms total)
+[       OK ] TestGraphBasic/1.test_topological_sort (6 ms)
+[----------] 42 tests from TestGraphBasic/1 (203 ms total)
 
 [----------] 12 tests from TestGraphSample/0, where TypeParam = boost::adjacency_list<boost::setS, boost::vecS, boost::directedS, boost::no_property, boost::no_property, boost::no_property, boost::listS>
 [ RUN      ] TestGraphSample/0.test_add_edge_duplicate
@@ -249,7 +249,7 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphSample/0.test_edge
 [       OK ] TestGraphSample/0.test_edge (4 ms)
 [ RUN      ] TestGraphSample/0.test_edges
-[       OK ] TestGraphSample/0.test_edges (9 ms)
+[       OK ] TestGraphSample/0.test_edges (8 ms)
 [ RUN      ] TestGraphSample/0.test_num_edges
 [       OK ] TestGraphSample/0.test_num_edges (4 ms)
 [ RUN      ] TestGraphSample/0.test_num_vertices
@@ -259,14 +259,14 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphSample/0.test_target
 [       OK ] TestGraphSample/0.test_target (3 ms)
 [ RUN      ] TestGraphSample/0.test_vertex
-[       OK ] TestGraphSample/0.test_vertex (4 ms)
+[       OK ] TestGraphSample/0.test_vertex (3 ms)
 [ RUN      ] TestGraphSample/0.test_vertices
-[       OK ] TestGraphSample/0.test_vertices (7 ms)
+[       OK ] TestGraphSample/0.test_vertices (6 ms)
 [ RUN      ] TestGraphSample/0.test_has_cycle
 [       OK ] TestGraphSample/0.test_has_cycle (5 ms)
 [ RUN      ] TestGraphSample/0.test_topological_sort
-[       OK ] TestGraphSample/0.test_topological_sort (7 ms)
-[----------] 12 tests from TestGraphSample/0 (69 ms total)
+[       OK ] TestGraphSample/0.test_topological_sort (6 ms)
+[----------] 12 tests from TestGraphSample/0 (68 ms total)
 
 [----------] 12 tests from TestGraphSample/1, where TypeParam = Graph
 [ RUN      ] TestGraphSample/1.test_add_edge_duplicate
@@ -278,7 +278,7 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphSample/1.test_edges
 [       OK ] TestGraphSample/1.test_edges (7 ms)
 [ RUN      ] TestGraphSample/1.test_num_edges
-[       OK ] TestGraphSample/1.test_num_edges (3 ms)
+[       OK ] TestGraphSample/1.test_num_edges (4 ms)
 [ RUN      ] TestGraphSample/1.test_num_vertices
 [       OK ] TestGraphSample/1.test_num_vertices (3 ms)
 [ RUN      ] TestGraphSample/1.test_source
@@ -286,15 +286,15 @@ Running main() from gtest_main.cc
 [ RUN      ] TestGraphSample/1.test_target
 [       OK ] TestGraphSample/1.test_target (3 ms)
 [ RUN      ] TestGraphSample/1.test_vertex
-[       OK ] TestGraphSample/1.test_vertex (4 ms)
+[       OK ] TestGraphSample/1.test_vertex (3 ms)
 [ RUN      ] TestGraphSample/1.test_vertices
 [       OK ] TestGraphSample/1.test_vertices (6 ms)
 [ RUN      ] TestGraphSample/1.test_has_cycle
 [       OK ] TestGraphSample/1.test_has_cycle (4 ms)
 [ RUN      ] TestGraphSample/1.test_topological_sort
-[       OK ] TestGraphSample/1.test_topological_sort (6 ms)
-[----------] 12 tests from TestGraphSample/1 (70 ms total)
+[       OK ] TestGraphSample/1.test_topological_sort (5 ms)
+[----------] 12 tests from TestGraphSample/1 (68 ms total)
 
 [----------] Global test environment tear-down
-[==========] 138 tests from 6 test cases ran. (1348 ms total)
+[==========] 138 tests from 6 test cases ran. (1336 ms total)
 [  PASSED  ] 138 tests.
