@@ -151,8 +151,8 @@ public:
 		// -----------
 
 		/**
-		* Create an Iterator object using the MyDeque container
-		* @param p - a pointer to the MyDeque container
+		* Create an Iterator object using the Graph container
+		* @param g - a pointer to the Graph container
 		* @param i - index state for the Iterator
 		*/
 		edge_iterator (const Graph* g = nullptr, std::size_t i = 0) : _g(g), _index(i)
