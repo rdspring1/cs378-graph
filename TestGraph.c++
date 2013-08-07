@@ -626,7 +626,7 @@ TYPED_TEST(TestGraphBasic, test_add_edge)
 
 TYPED_TEST(TestGraphGeneral, test_add_edge_missing_vertex)
 { 
-	typedef typename graph_type::vertices_size_type vertices_size_type;
+	typedef typename TestFixture::vertices_size_type vertices_size_type;
 	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
 	vertices_size_type vs = num_vertices(this->g);
 	ASSERT_EQ(vs, 0);
@@ -656,28 +656,28 @@ TYPED_TEST(TestGraphGeneral, test_adjacency_list_add_edge)
 {	
 	this->vdA  = add_vertex(this->g); 
 	this->vdB  = add_vertex(this->g);
-	add_edge(vdA, vdB, this->g);
-	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p2 = adjacent_vertices(vdA, this->g);
-    typename TestFixture::adjacency_iterator b2 = p2.first; 
-    typename TestFixture::adjacency_iterator e2 = p2.second;
-    ASSERT_EQ(true, b2 != e2);
-    typename TestFixture::vertex_descriptor vd2 = *b2;
-    ASSERT_EQ(true, vd2 == vdB);
-    ++b2;
-	ASSERT_EQ(true, b2 == e2);
+	add_edge(this->vdA, this->vdB, this->g);
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdA, this->g);
+    typename TestFixture::adjacency_iterator b = p.first; 
+    typename TestFixture::adjacency_iterator e = p.second;
+    ASSERT_EQ(true, b != e);
+    typename TestFixture::vertex_descriptor vd = *b;
+    ASSERT_EQ(true, vd == this->vdB);
+    ++b;
+	ASSERT_EQ(true, b == e);
 	
-	add_edge(vdA, vdA, this->g);
-    p2 = adjacent_vertices(vdA, this->g);
-    b2 = p2.first; 
-    e2 = p2.second;
-    ASSERT_EQ(true, b2 != e2);
-    vd2 = *b2;
-    ASSERT_EQ(true, vd2 == vdA);
-    ++b2;
-    vd2 = *b2;
-    ASSERT_EQ(true, vd2 == vdB);
-	++b2;
-	ASSERT_EQ(true, b2 == e2);
+	add_edge(this->vdA, this->vdA, this->g);
+    p = adjacent_vertices(this->vdA, this->g);
+    b = p.first; 
+    e = p.second;
+    ASSERT_EQ(true, b != e);
+    vd = *b;
+    ASSERT_EQ(true, vd == this->vdA);
+    ++b;
+    vd = *b;
+    ASSERT_EQ(true, vd == this->vdB);
+	++b;
+	ASSERT_EQ(true, b == e);
 }
 
 // ----------------------
