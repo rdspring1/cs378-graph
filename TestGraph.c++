@@ -40,7 +40,7 @@ To test the program:
 using namespace std;
 
 typedef boost::error_info<struct tag_errmsg, std::string> errmsg_info; 
-typedef testing::Types<boost::adjacency_list<boost::setS, boost::vecS, boost::directedS>, Graph > testlist;
+typedef testing::Types<boost::adjacency_list<boost::setS, boost::vecS, boost::directedS>, Graph> testlist;
 
 template <typename T>
 class TestGraphSample :  public testing::Test
@@ -624,15 +624,15 @@ TYPED_TEST(TestGraphBasic, test_add_edge)
 // test_add_edge
 // -------------
 
-TYPED_TEST(TestGraphGeneral, test_add_edge_missing_vertex)
-{ 
-	typedef typename TestFixture::vertices_size_type vertices_size_type;
-	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
-	vertices_size_type vs = num_vertices(this->g);
-	ASSERT_GT(vs, 0);
-	ASSERT_NE(p.first, this->edAB);
-	ASSERT_EQ(p.second, true);
-}
+//TYPED_TEST(TestGraphGeneral, test_add_edge_missing_vertex)
+//{ 
+//	typedef typename TestFixture::vertices_size_type vertices_size_type;
+//	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
+//	vertices_size_type vs = num_vertices(this->g);
+//	ASSERT_GT(vs, 0);
+//	ASSERT_NE(p.first, this->edAB);
+//	ASSERT_EQ(p.second, true);
+//}
 
 // -------------
 // test_edge
