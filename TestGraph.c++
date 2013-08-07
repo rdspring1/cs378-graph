@@ -629,8 +629,8 @@ TYPED_TEST(TestGraphGeneral, test_add_edge_missing_vertex)
 	typedef typename TestFixture::vertices_size_type vertices_size_type;
 	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
 	vertices_size_type vs = num_vertices(this->g);
-	ASSERT_EQ(vs, 0);
-	ASSERT_TRUE(p.first == this->edAB);
+	ASSERT_GT(vs, 0);
+	ASSERT_NE(p.first, this->edAB);
 	ASSERT_EQ(p.second, true);
 }
 
