@@ -400,7 +400,6 @@ public:
     ///
 	friend std::pair<edge_iterator, edge_iterator> edges (const Graph& graph) 
 	{
-		// <your code>
 		edge_iterator b(&graph, 0);
 		edge_iterator e(&graph, graph.edgesize);
 		return std::make_pair(b, e);
