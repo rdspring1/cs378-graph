@@ -204,6 +204,7 @@ class GraphOnly : public testing::Test {
 
         add_edge(vdA, vdB, g).first;
         add_edge(vdB, vdA, g).first;}
+        
 	virtual void add_edge_list(std::vector<vector<int> > x){
 		for (unsigned i = 0; i < x.size(); ++i)
 			for (unsigned j = 1; j < x[i].size(); ++j)

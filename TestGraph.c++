@@ -419,6 +419,58 @@ public:
 		edAB = add_edge(vdA, vdB, this->g).first;
 		edBF = add_edge(vdB, vdF, this->g).first;
 	}
+    
+    void Complex5NonCycleSetUp()
+	{
+        vdA  = add_vertex(g);
+        vdB  = add_vertex(g);
+        vdC  = add_vertex(g);
+        vdD  = add_vertex(g);
+        edCB = add_edge(vdC, vdB, g).first;
+        edBA = add_edge(vdB, vdA, g).first;
+        edCD = add_edge(vdC, vdD, g).first;
+        edAD = add_edge(vdA, vdD, g).first;
+    }
+    
+    void Complex6NonCycleSetUp()
+	{
+        vdA  = add_vertex(g);
+        vdB  = add_vertex(g);
+        vdC  = add_vertex(g);
+        vdD  = add_vertex(g);
+		vdE	 = add_vertex(g);
+		vdF  = add_vertex(g);
+
+        edAB = add_edge(vdA, vdB, g).first;
+        edCE = add_edge(vdC, vdE, g).first;
+        edCF = add_edge(vdC, vdF, g).first;
+        edAD = add_edge(vdA, vdD, g).first;
+        edBE = add_edge(vdB, vdE, g).first;
+        edED = add_edge(vdE, vdD, g).first;
+    }
+    
+    void Complex7NonCycleSetUp()
+    {
+        vdA  = add_vertex(g);
+        vdB  = add_vertex(g);
+        vdC  = add_vertex(g);
+        vdD  = add_vertex(g);
+        vdE  = add_vertex(g);
+        vdF  = add_vertex(g);
+        vdG  = add_vertex(g);
+        vdH  = add_vertex(g);
+
+        edAB = add_edge(vdA, vdB, g).first;
+        edAC = add_edge(vdA, vdC, g).first;
+        edAE = add_edge(vdA, vdE, g).first;
+        edBD = add_edge(vdB, vdD, g).first;
+        edBE = add_edge(vdB, vdE, g).first;
+        edCD = add_edge(vdC, vdD, g).first;
+        edDE = add_edge(vdD, vdE, g).first;
+        edDF = add_edge(vdD, vdF, g).first;
+        edFH = add_edge(vdF, vdH, g).first;
+        edGH = add_edge(vdG, vdH, g).first;
+    }
 
 	void SimpleNonCycleSetUp()
 	{
@@ -431,6 +483,32 @@ public:
 TYPED_TEST_CASE(TestGraphSample, testlist);
 TYPED_TEST_CASE(TestGraphBasic, testlist);
 TYPED_TEST_CASE(TestGraphGeneral, testlist);
+
+// --------------
+// test_vertex
+// --------------
+TYPED_TEST(TestGraphGeneral, test_vertex_random_positive) 
+{
+   	typename TestFixture::edges_size_type es = num_edges(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
+	ASSERT_EQ(es, 0);
+	ASSERT_EQ(vs, 0);
+    typename TestFixture::vertex_descriptor v = vertex(101, this->g);
+    ASSERT_EQ(v, 101);
+}
+
+// --------------
+// test_vertex
+// --------------
+TYPED_TEST(TestGraphGeneral, test_vertex_random_negative) 
+{
+   	typename TestFixture::edges_size_type es = num_edges(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
+	ASSERT_EQ(es, 0);
+	ASSERT_EQ(vs, 0);
+    typename TestFixture::vertex_descriptor v = vertex(-101, this->g);
+    ASSERT_EQ(v, -101);
+}
 
 // --------------
 // test_has_cycle
@@ -464,6 +542,20 @@ TYPED_TEST(TestGraphGeneral, test_has_cycle_true)
 // test_has_cycle
 // --------------
 
+TYPED_TEST(TestGraphGeneral, test_has_cycle_simple) 
+{
+	this->SimpleNonCycleSetUp();
+	typename TestFixture::edges_size_type es = num_edges(this->g);
+	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
+	ASSERT_EQ(es, 1);
+	ASSERT_EQ(vs, 2);
+	ASSERT_FALSE(has_cycle(this->g));
+}
+
+// --------------
+// test_has_cycle
+// --------------
+
 TYPED_TEST(TestGraphGeneral, test_has_cycle_complex) 
 {
 	this->ComplexNonCycleSetUp();
@@ -478,13 +570,69 @@ TYPED_TEST(TestGraphGeneral, test_has_cycle_complex)
 // test_has_cycle
 // --------------
 
-TYPED_TEST(TestGraphGeneral, test_has_cycle_simple) 
+TYPED_TEST(TestGraphGeneral, test_has_cycle_complex1) 
 {
-	this->SimpleNonCycleSetUp();
-	typename TestFixture::edges_size_type es = num_edges(this->g);
-	typename TestFixture::vertices_size_type vs = num_vertices(this->g);
-	ASSERT_EQ(es, 1);
-	ASSERT_EQ(vs, 2);
+	this->Complex1NonCycleSetUp();
+	ASSERT_FALSE(has_cycle(this->g));
+}
+
+// --------------
+// test_has_cycle
+// --------------
+
+TYPED_TEST(TestGraphGeneral, test_has_cycle_complex2) 
+{
+	this->Complex2NonCycleSetUp();
+	ASSERT_FALSE(has_cycle(this->g));
+}
+
+// --------------
+// test_has_cycle
+// --------------
+
+TYPED_TEST(TestGraphGeneral, test_has_cycle_complex3) 
+{
+	this->Complex3NonCycleSetUp();
+	ASSERT_FALSE(has_cycle(this->g));
+}
+
+// --------------
+// test_has_cycle
+// --------------
+
+TYPED_TEST(TestGraphGeneral, test_has_cycle_complex4) 
+{
+	this->Complex4NonCycleSetUp();
+	ASSERT_FALSE(has_cycle(this->g));
+}
+
+// --------------
+// test_has_cycle
+// --------------
+
+TYPED_TEST(TestGraphGeneral, test_has_cycle_complex5) 
+{
+	this->Complex5NonCycleSetUp();
+	ASSERT_FALSE(has_cycle(this->g));
+}
+
+// --------------
+// test_has_cycle
+// --------------
+
+TYPED_TEST(TestGraphGeneral, test_has_cycle_complex6) 
+{
+	this->Complex6NonCycleSetUp();
+	ASSERT_FALSE(has_cycle(this->g));
+}
+
+// --------------
+// test_has_cycle
+// --------------
+
+TYPED_TEST(TestGraphGeneral, test_has_cycle_complex7) 
+{
+	this->Complex7NonCycleSetUp();
 	ASSERT_FALSE(has_cycle(this->g));
 }
 
@@ -584,6 +732,42 @@ TYPED_TEST(TestGraphGeneral, test_topological_sort_complex4)
 // test_topological_sort
 // ---------------------
 
+TYPED_TEST(TestGraphGeneral, test_topological_sort_complex5)
+{
+	this->Complex5NonCycleSetUp();
+	std::ostringstream out;
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
+	ASSERT_EQ(out.str(), "3 0 1 2 ");
+}
+
+// ---------------------
+// test_topological_sort
+// ---------------------
+
+TYPED_TEST(TestGraphGeneral, test_topological_sort_complex6)
+{
+	this->Complex6NonCycleSetUp();
+	std::ostringstream out;
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
+	ASSERT_EQ(out.str(), "3 4 1 0 5 2 ");
+}
+
+// ---------------------
+// test_topological_sort
+// ---------------------
+
+TYPED_TEST(TestGraphGeneral, test_topological_sort_complex7)
+{
+	this->Complex7NonCycleSetUp();
+	std::ostringstream out;
+	topological_sort(this->g, std::ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
+	ASSERT_EQ(out.str(), "4 7 5 3 1 2 0 6 ");
+}
+
+// ---------------------
+// test_topological_sort
+// ---------------------
+
 TYPED_TEST(TestGraphGeneral, test_topological_sort_simple)
 {
 	this->SimpleNonCycleSetUp();
@@ -612,27 +796,40 @@ TYPED_TEST(TestGraphGeneral, test_add_edge)
 // -------------
 // test_add_edge
 // -------------
-
-TYPED_TEST(TestGraphBasic, test_add_edge)
+TYPED_TEST(TestGraphGeneral, test_add_edge_adjacency_list_no_change)
 {
-	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdC, this->g);
-	ASSERT_EQ(p.first , this->edAC);
-	ASSERT_EQ(p.second, false);
+    typedef typename TestFixture::edge_descriptor edge_descriptor;
+    typedef typename TestFixture::adjacency_iterator adjacency_iterator;
+    this->SimpleNonCycleSetUp();
+    std::pair<adjacency_iterator, adjacency_iterator> x = adjacent_vertices(this->vdA, this->g);
+    ASSERT_NE(x.first, x.second);
+    ASSERT_EQ(std::distance(x.first, x.second), 1);
+    std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdB, this->vdA, this->g);
+    ASSERT_TRUE(p.second);
+    std::pair<adjacency_iterator, adjacency_iterator> y = adjacent_vertices(this->vdA, this->g);
+    ASSERT_NE(y.first, y.second);
+    ASSERT_EQ(std::distance(y.first, y.second), 1);
+    ASSERT_TRUE(has_cycle(this->g));
 }
 
 // -------------
 // test_add_edge
 // -------------
-
-//TYPED_TEST(TestGraphGeneral, test_add_edge_missing_vertex)
-//{ 
-//	typedef typename TestFixture::vertices_size_type vertices_size_type;
-//	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdB, this->g);
-//	vertices_size_type vs = num_vertices(this->g);
-//	ASSERT_GT(vs, 0);
-//	ASSERT_NE(p.first, this->edAB);
-//	ASSERT_EQ(p.second, true);
-//}
+TYPED_TEST(TestGraphGeneral, test_add_edge_adjacency_list_change)
+{
+    typedef typename TestFixture::edge_descriptor edge_descriptor;
+    typedef typename TestFixture::adjacency_iterator adjacency_iterator;
+    this->SimpleNonCycleSetUp();
+    std::pair<adjacency_iterator, adjacency_iterator> x = adjacent_vertices(this->vdA, this->g);
+    ASSERT_NE(x.first, x.second);
+    ASSERT_EQ(std::distance(x.first, x.second), 1);
+    std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdA, this->g);
+    ASSERT_TRUE(p.second);
+    std::pair<adjacency_iterator, adjacency_iterator> y = adjacent_vertices(this->vdA, this->g);
+    ASSERT_NE(y.first, y.second);
+    ASSERT_EQ(std::distance(y.first, y.second), 2);
+    ASSERT_TRUE(has_cycle(this->g));
+}
 
 // -------------
 // test_edge
@@ -680,6 +877,17 @@ TYPED_TEST(TestGraphGeneral, test_adjacency_list_add_edge)
 	ASSERT_EQ(true, b == e);
 }
 
+// -------------
+// test_add_edge
+// -------------
+
+TYPED_TEST(TestGraphBasic, test_add_edge)
+{
+	std::pair<typename TestFixture::edge_descriptor, bool> p = add_edge(this->vdA, this->vdC, this->g);
+	ASSERT_EQ(p.first , this->edAC);
+	ASSERT_EQ(p.second, false);
+}
+
 // ----------------------
 // test_adjacent_vertices
 // ----------------------
@@ -696,6 +904,18 @@ TYPED_TEST(TestGraphBasic, test_adjacent_vertices_A)
 		ASSERT_EQ(vd, this->vdC);
 	}
 	++b;
+	ASSERT_TRUE(b == e);
+}
+
+TYPED_TEST(TestGraphBasic, test_adjacent_vertices_A_reverse)
+{
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdA, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
+	ASSERT_TRUE(b != e);
+    --e;
+	typename TestFixture::vertex_descriptor vd = *e;
+	ASSERT_EQ(vd, this->vdC);
 	ASSERT_TRUE(b == e);
 }
 
@@ -734,6 +954,26 @@ TYPED_TEST(TestGraphBasic, test_adjacent_vertices_D)
 	}
 }
 
+TYPED_TEST(TestGraphBasic, test_adjacent_vertices_D_reverse)
+{
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdD, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
+	ASSERT_TRUE(b != e);
+    --e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdC);
+	}
+	--e;
+	if (b == e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdB);
+	}
+}
+
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_E)
 {
 	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdE, this->g);
@@ -746,6 +986,21 @@ TYPED_TEST(TestGraphBasic, test_adjacent_vertices_E)
 		ASSERT_EQ(vd, this->vdB);
 	}
 	++b;
+	ASSERT_TRUE(b == e);
+}
+
+TYPED_TEST(TestGraphBasic, test_adjacent_vertices_E_reverse)
+{
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdE, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
+    ASSERT_TRUE(b != e);
+	--e;
+	if (b == e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdB);
+	}
 	ASSERT_TRUE(b == e);
 }
 
@@ -768,6 +1023,26 @@ TYPED_TEST(TestGraphBasic, test_adjacent_vertices_F)
 	}
 }
 
+TYPED_TEST(TestGraphBasic, test_adjacent_vertices_F_reverse)
+{
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdF, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
+	ASSERT_TRUE(b != e);
+    --e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdC);
+	}
+	--e;
+	if (b == e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdB);
+	}
+}
+
 TYPED_TEST(TestGraphBasic, test_adjacent_vertices_G)
 {
 	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdG, this->g);
@@ -780,6 +1055,18 @@ TYPED_TEST(TestGraphBasic, test_adjacent_vertices_G)
 		ASSERT_EQ(vd, this->vdC);
 	}
 	++b;
+	ASSERT_TRUE(b == e);
+}
+
+TYPED_TEST(TestGraphBasic, test_adjacent_vertices_G_reverse)
+{
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdG, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
+	ASSERT_TRUE(b != e);
+    --e;
+	typename TestFixture::vertex_descriptor vd = *e;
+	ASSERT_EQ(vd, this->vdC);
 	ASSERT_TRUE(b == e);
 }
 
@@ -1102,6 +1389,58 @@ TYPED_TEST(TestGraphBasic, test_vertices)
 	}
 }
 
+// -------------
+// test_vertices
+// -------------
+
+TYPED_TEST(TestGraphBasic, test_vertices_reverse) 
+{
+	std::pair<typename TestFixture::vertex_iterator, typename TestFixture::vertex_iterator> p = vertices(this->g);
+	typename TestFixture::vertex_iterator                             b = p.first;
+	typename TestFixture::vertex_iterator                             e = p.second;
+	ASSERT_TRUE(b != e);
+    --e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdG);
+	}
+	--e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdF);
+	}
+	--e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdE);
+	}
+	--e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdD);
+	}
+	--e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdC);
+	}
+	--e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdB);
+	}
+	--e;
+	typename TestFixture::vertex_descriptor vd = *e;
+	ASSERT_EQ(vd, this->vdA);
+	ASSERT_EQ(b, e);
+}
+
 // --------------
 // test_has_cycle
 // --------------
@@ -1142,6 +1481,7 @@ TYPED_TEST(TestGraphSample, test_adjacent_vertices)
 	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdA, this->g);
 	typename TestFixture::adjacency_iterator b = p.first;
 	typename TestFixture::adjacency_iterator e = p.second;
+    ASSERT_EQ(std::distance(b, e), 3);
 	ASSERT_TRUE(b != e);
 	if (b != e) 
 	{
@@ -1154,6 +1494,39 @@ TYPED_TEST(TestGraphSample, test_adjacent_vertices)
 		typename TestFixture::vertex_descriptor vd = *b;
 		ASSERT_EQ(vd, this->vdC);
 	}
+    ++b;
+    if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *b;
+		ASSERT_EQ(vd, this->vdE);
+	}
+    ++b;
+    ASSERT_EQ(b, e);
+}
+
+TYPED_TEST(TestGraphSample, test_adjacent_vertices_reverse)
+{
+	std::pair<typename TestFixture::adjacency_iterator, typename TestFixture::adjacency_iterator> p = adjacent_vertices(this->vdA, this->g);
+	typename TestFixture::adjacency_iterator b = p.first;
+	typename TestFixture::adjacency_iterator e = p.second;
+    ASSERT_EQ(std::distance(b, e), 3);
+	ASSERT_TRUE(b != e);
+    --e;
+	if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdE);
+	}
+	--e;
+    if (b != e) 
+	{
+		typename TestFixture::vertex_descriptor vd = *e;
+		ASSERT_EQ(vd, this->vdC);
+	}
+    --e;
+	typename TestFixture::vertex_descriptor vd = *e;
+	ASSERT_EQ(vd, this->vdB);
+	ASSERT_EQ(b, e);
 }
 
 // ---------
