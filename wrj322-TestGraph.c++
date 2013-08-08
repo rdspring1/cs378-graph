@@ -29,13 +29,11 @@ To test the program:
 #include <sstream>  // ostringstream
 #include <utility>  // pair
 
-#include "boost/graph/adjacency_list.hpp"  // adjacency_list
 #include "boost/graph/exception.hpp"  // adjacency_list
-//#include "boost/graph/topological_sort.hpp"// topological_sort
+#include "boost/graph/adjacency_list.hpp"// topological_sort
 
 #include "gtest/gtest.h" // Include GoogleTest.
 
-#define class struct
 #define protected public
 #define private public
 
@@ -272,10 +270,7 @@ TYPED_TEST(GraphTest, constructor_01) {
         ASSERT_EQ(d, 0);
 
         ASSERT_EQ(g.vertices.size(), 1);
-        ASSERT_EQ(g.edges.size(), 0);
-
-        ASSERT_EQ(g.adjacentVertices.size(), 0);
-        ASSERT_EQ(g.triples.size(), 0); 
+        ASSERT_EQ(g.edgesize, 0);
     }
 
     // -----------------
@@ -292,10 +287,7 @@ TYPED_TEST(GraphTest, constructor_01) {
             ASSERT_EQ(d, i);
 
             ASSERT_EQ(g.vertices.size(), i+1);
-            ASSERT_EQ(g.edges.size(), 0);
-
-            ASSERT_EQ(g.adjacentVertices.size(), 0);
-            ASSERT_EQ(g.triples.size(), 0); 
+            ASSERT_EQ(g.edgesize, 0);
         }
     }
 
@@ -313,14 +305,12 @@ TYPED_TEST(GraphTest, constructor_01) {
         ASSERT_EQ(vdA, 0);
         ASSERT_EQ(vdB, 1);
 
-        ASSERT_EQ(p.first, 0);
+		Graph::edge_descriptor q = std::make_pair(0, 1);
+        ASSERT_EQ(p.first, q);
         ASSERT_TRUE(p.second);
 
         ASSERT_EQ(g.vertices.size(), 2);
-        ASSERT_EQ(g.edges.size(), 1);
-
-        ASSERT_EQ(g.adjacentVertices.size(), 1); // Only because g is directed.
-        ASSERT_EQ(g.triples.size(), 1); 
+        ASSERT_EQ(g.edgesize, 1);
     }
 
     // ---------------
@@ -341,14 +331,12 @@ TYPED_TEST(GraphTest, constructor_01) {
             ASSERT_EQ(vdA, 2*i);
             ASSERT_EQ(vdB, 2*i+1);
 
-            ASSERT_EQ(p.first, i);
+			Graph::edge_descriptor q = std::make_pair(2*i, 2*i+1);
+            ASSERT_EQ(p.first, q);
             ASSERT_TRUE(p.second);
 
             ASSERT_EQ(g.vertices.size(), 2*i+2);
-            ASSERT_EQ(g.edges.size(), i+1);
-
-            ASSERT_EQ(g.adjacentVertices.size(), i+1); // Only because g is directed.
-            ASSERT_EQ(g.triples.size(), i+1); 
+            ASSERT_EQ(g.edgesize, i+1);
         }
     }
 
@@ -370,41 +358,14 @@ TYPED_TEST(GraphTest, constructor_01) {
 
             ASSERT_EQ(vdB, i+1);
 
-            ASSERT_EQ(p.first, i);
+			Graph::edge_descriptor q = std::make_pair(i, i+1);
+            ASSERT_EQ(p.first, q);
             ASSERT_TRUE(p.second);
 
             ASSERT_EQ(g.vertices.size(), i+2);
-            ASSERT_EQ(g.edges.size(), i+1);
-
-            ASSERT_EQ(g.adjacentVertices.size(), i+1); // Only because g is directed.
-            ASSERT_EQ(g.triples.size(), i+1); 
+            ASSERT_EQ(g.edgesize, i+1);
         }
     }
-
-
-    // ----------------
-    // test_edge_exists
-    // ----------------
-
-    TEST(MyGraphTest,  test_edge_exists) {
-        Graph g;
-        Graph::vertex_descriptor vdA = add_vertex(g);
-        Graph::vertex_descriptor vdB = add_vertex(g);
-        Graph::edge_descriptor edAB = add_edge(vdA,vdB,g).first;
-        ASSERT_EQ(g.edgeExists(vdA,vdB),edAB);
-    }
-
-    // ------------------
-    // test_edge_exists_2
-    // ------------------
-
-    TEST(MyGraphTest,  test_edge_exists_2) {
-        Graph g;
-        Graph::vertex_descriptor vdA = add_vertex(g);
-        Graph::vertex_descriptor vdB = add_vertex(g);
-        ASSERT_EQ(g.edgeExists(vdA,vdB),-1);
-    }
-
 
     // -------------
     // test_add_edge
@@ -876,7 +837,7 @@ TYPED_TEST(GraphTest, constructor_01) {
         this->setup_noCycle();
         ostringstream out;
         topological_sort(this->g, ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
-        ASSERT_EQ(out.str(), "0 1 2 5 3 4 6 7 ");
+        ASSERT_EQ(out.str(), "4 3 1 2 0 7 5 6 ");
     }
 
 
@@ -888,7 +849,7 @@ TYPED_TEST(GraphTest, constructor_01) {
         this->setupStar();
         ostringstream out;
         topological_sort(this->g, ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
-        ASSERT_EQ(out.str(), "0 1 2 3 4 5 6 7 ");
+        ASSERT_EQ(out.str(), "1 2 3 4 5 6 7 0 ");
     }
 
 
@@ -900,7 +861,7 @@ TYPED_TEST(GraphTest, constructor_01) {
         this->setupReverseStar();
         ostringstream out;
         topological_sort(this->g, ostream_iterator<typename TestFixture::vertex_descriptor>(out, " "));
-        ASSERT_EQ(out.str(), "1 2 3 4 5 6 7 0 ");
+        ASSERT_EQ(out.str(), "0 1 2 3 4 5 6 7 ");
     }
 
     // -----------------------

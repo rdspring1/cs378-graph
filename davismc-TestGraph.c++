@@ -52,7 +52,7 @@ class GraphOnly : public testing::Test {
     typedef Graph								    graph_type;
 
     typedef typename graph_type::vertex_descriptor  vertex_descriptor;
-    typedef typenamegraph_type::edge_descriptor    edge_descriptor;
+    typedef typename graph_type::edge_descriptor    edge_descriptor;
 
     typedef typename graph_type::vertex_iterator    vertex_iterator;
     typedef typename graph_type::edge_iterator      edge_iterator;
