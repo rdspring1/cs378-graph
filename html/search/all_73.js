@@ -1,14 +1,20 @@
 var searchData=
 [
-  ['setup',['SetUp',['../classTestGraphSample.html#a380ba00ec622b64541a14958c58dc42e',1,'TestGraphSample::SetUp()'],['../classTestGraphBasic.html#afba547e782bbda6b4bce8c715ba44fa3',1,'TestGraphBasic::SetUp()'],['../classInterfaceTest.html#aa77dd610895294519e5b46f008a6973d',1,'InterfaceTest::SetUp()'],['../structTestGraph.html#acb018a877b5e5fd4dd61d49752d0036b',1,'TestGraph::setUp()']]],
+  ['setup',['setup',['../classGraphTest.html#ac76110081affeca5c90b898e85fa7cd0',1,'GraphTest::setup()'],['../classTestGraphSample.html#a380ba00ec622b64541a14958c58dc42e',1,'TestGraphSample::SetUp()'],['../classTestGraphBasic.html#afba547e782bbda6b4bce8c715ba44fa3',1,'TestGraphBasic::SetUp()'],['../classInterfaceTest.html#aa77dd610895294519e5b46f008a6973d',1,'InterfaceTest::SetUp()'],['../structTestGraph.html#acb018a877b5e5fd4dd61d49752d0036b',1,'TestGraph::setUp()']]],
   ['setup_5fgraph01',['setUp_Graph01',['../classGraphOnly.html#a8e28af648b3bc8bf6c98b166b30f80ed',1,'GraphOnly::setUp_Graph01()'],['../classInterfaceTests.html#a9933156afd522a37bcc0297bb17d3891',1,'InterfaceTests::setUp_Graph01()']]],
   ['setup_5fgraph02',['setUp_Graph02',['../classGraphOnly.html#afe56bae28968a4003ab5ac54b64522fb',1,'GraphOnly::setUp_Graph02()'],['../classInterfaceTests.html#a7ce36139f98abcf1573b7416c099a9c1',1,'InterfaceTests::setUp_Graph02()']]],
   ['setup_5fgraph03',['setUp_Graph03',['../classGraphOnly.html#a557aae6dcb0059d23c3ada84cd161a3e',1,'GraphOnly::setUp_Graph03()'],['../classInterfaceTests.html#ac4d687d9f1a632aef0e72b9206e3ac65',1,'InterfaceTests::setUp_Graph03()']]],
   ['setup_5fgraph04',['setUp_Graph04',['../classGraphOnly.html#ad48fc89b090e1d2c3267d0d9c6191bfd',1,'GraphOnly::setUp_Graph04()'],['../classInterfaceTests.html#a975beb45d719bec902280807ed899cbc',1,'InterfaceTests::setUp_Graph04()']]],
   ['setup_5fgraph05',['setUp_Graph05',['../classGraphOnly.html#ae77150a1dc7b93d34f0abdb6f0b7cca2',1,'GraphOnly::setUp_Graph05()'],['../classInterfaceTests.html#a6a13105d31ade170f0b06c268a246399',1,'InterfaceTests::setUp_Graph05()']]],
+  ['setup_5fgraph06',['setUp_Graph06',['../classGraphOnly.html#ab0a99d6de18c1acbb2647b71722094d9',1,'GraphOnly::setUp_Graph06()'],['../classInterfaceTests.html#a047b207bb23a7116ab18f235dec6ed98',1,'InterfaceTests::setUp_Graph06()']]],
+  ['setup_5fgraph07',['setUp_Graph07',['../classGraphOnly.html#a3bd2055b35fd96a0153a2366eabad497',1,'GraphOnly::setUp_Graph07()'],['../classInterfaceTests.html#a6067ddf03cd942c51081e753952bae34',1,'InterfaceTests::setUp_Graph07()']]],
+  ['setup_5fnocycle',['setup_noCycle',['../classGraphTest.html#a0d070ee5ecf5e7dbb47ccfd9d67cc453',1,'GraphTest']]],
   ['setupcomplexcyclic',['SetUpComplexCyclic',['../classImplementationTest.html#ac760d6ce617ebff76f8317fd26435b38',1,'ImplementationTest']]],
   ['setupcyclic',['SetUpCyclic',['../classImplementationTest.html#ae5f7cabfe66ea98fd47435b590574d44',1,'ImplementationTest']]],
   ['setupnoncyclic',['SetUpNonCyclic',['../classImplementationTest.html#ad572bf4d8cbe57375c7da6d5c6ab1ead',1,'ImplementationTest::SetUpNonCyclic()'],['../classInterfaceTest.html#a0df72f5437e7e196006fb127a5e64595',1,'InterfaceTest::SetUpNonCyclic()']]],
+  ['setupoct',['setupOct',['../classGraphTest.html#a5c55ec6278fdf2329fc02b79316c9474',1,'GraphTest']]],
+  ['setupreversestar',['setupReverseStar',['../classGraphTest.html#a07fcb8f6cd9894cfd59171e46fc7a924',1,'GraphTest']]],
+  ['setupstar',['setupStar',['../classGraphTest.html#ad97caeee49e2589d4f881daf2236447a',1,'GraphTest']]],
   ['simplenoncyclesetup',['SimpleNonCycleSetUp',['../classTestGraphGeneral.html#af516d1e132718caba1b9290220de3a7e',1,'TestGraphGeneral']]],
   ['source',['source',['../classGraph.html#ace55c3d50ad50ded6dcece167b98f26c',1,'Graph']]]
 ];
